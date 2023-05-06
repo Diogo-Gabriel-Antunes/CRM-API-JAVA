@@ -1,0 +1,362 @@
+[
+  {
+    "descricao": "Ramona Gallagher",
+    "data": "2024-04-01T20:19:18",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "6982CF25-5D92-C4C3-7C8A-C3C7ED8BB341",
+    "valor": 138.65,
+    "clienteUuid": "ff80818187e964c30187ee1237a20007"
+  },
+  {
+    "descricao": "Kermit Chavez",
+    "data": "2023-04-27T23:28:30",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "3DFCEC4C-7AB4-673E-55DA-69B0BAE4F567",
+    "valor": 7.16,
+    "clienteUuid": "ff80818187e964c30187ee0f70320002"
+  },
+  {
+    "descricao": "Marsden Gates",
+    "data": "2023-08-19T15:09:30",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "8C9EB5A5-1098-769B-B238-2EF1C1B8DB64",
+    "valor": -34.26,
+    "clienteUuid": "ff80818187e964c30187ee1237a20007"
+  },
+  {
+    "descricao": "Grady Lewis",
+    "data": "2023-11-05T00:08:49",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "6982CF25-5D92-C4C3-7C8A-C3C7ED8BB340",
+    "valor": 12.23,
+    "clienteUuid": "ff80818187e964c30187ee0f3a4c0001"
+  },
+  {
+    "descricao": "Fritz Wong",
+    "data": "2023-12-24T02:50:47",
+    "funilUuid": "6A342C0C-B728-4286-B5A9-4EF67B6154F2",
+    "etapaDoFunilUuid": "3DFCEC4C-7AB4-673E-55DA-69B0BAE4F568",
+    "valor": 115.02,
+    "clienteUuid": "ff80818187e964c30187ee1359220010"
+  },
+  {
+    "descricao": "Ulla Valdez",
+    "data": "2022-05-18T01:33:00",
+    "funilUuid": "6A342C0C-B728-4286-B5A9-4EF67B6154F2",
+    "etapaDoFunilUuid": "3DFCEC4C-7AB4-673E-55DA-69B0BAE4F568",
+    "valor": 26.61,
+    "clienteUuid": "ff80818187e964c30187ee0fc4c40004"
+  },
+  {
+    "descricao": "Ezekiel Joseph",
+    "data": "2024-04-16T08:30:40",
+    "funilUuid": "6A342C0C-B728-4286-B5A9-4EF67B6154F2",
+    "etapaDoFunilUuid": "3DFCEC4C-7AB4-673E-55DA-69B0BAE4F568",
+    "valor": -2.30,
+    "clienteUuid": "ff80818187e964c30187ee1359220010"
+  },
+  {
+    "descricao": "Jared Christian",
+    "data": "2023-12-02T02:13:15",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "8C9EB5A5-1098-769B-B238-2EF1C1B8DB63",
+    "valor": 24.53,
+    "clienteUuid": "ff80818187e964c30187ee0f70320002"
+  },
+  {
+    "descricao": "Francis Crawford",
+    "data": "2024-01-13T23:24:07",
+    "funilUuid": "6A342C0C-B728-4286-B5A9-4EF67B6154F2",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4b",
+    "valor": -34.56,
+    "clienteUuid": "ff80818187e964c30187ee1359220009"
+  },
+  {
+    "descricao": "Ahmed Kemp",
+    "data": "2022-07-10T17:20:30",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4A",
+    "valor": 20.23,
+    "clienteUuid": "ff80818187e964c30187ee0fe3800005"
+  },
+  {
+    "descricao": "Michelle Crawford",
+    "data": "2023-11-13T20:13:46",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4A",
+    "valor": 40.18,
+    "clienteUuid": "ff80818187e964c30187ee0f3a4c0001"
+  },
+  {
+    "descricao": "Brett Pacheco",
+    "data": "2023-01-20T18:13:27",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "8C9EB5A5-1098-769B-B238-2EF1C1B8DB64",
+    "valor": 58.32,
+    "clienteUuid": "ff80818187e964c30187ee0f3a4c0001"
+  },
+  {
+    "descricao": "Miriam Wheeler",
+    "data": "2022-05-17T09:41:36",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "6982CF25-5D92-C4C3-7C8A-C3C7ED8BB340",
+    "valor": "0.95",
+    "clienteUuid": "ff80818187e964c30187ee133b130008"
+  },
+  {
+    "descricao": "Wade Johnson",
+    "data": "2023-03-23T00:34:00",
+    "funilUuid": "6A342C0C-B728-4286-B5A9-4EF67B6154F2",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4A",
+    "valor": 31.77,
+    "clienteUuid": "ff80818187e964c30187ee1237a20007"
+  },
+  {
+    "descricao": "Ivor Franklin",
+    "data": "2022-11-29T07:26:34",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "6982CF25-5D92-C4C3-7C8A-C3C7ED8BB341",
+    "valor": 28.96,
+    "clienteUuid": "ff80818187e964c30187ee1359220010"
+  },
+  {
+    "descricao": "Brendan Kidd",
+    "data": "2024-01-30T06:36:35",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4A",
+    "valor": -81.94,
+    "clienteUuid": "ff80818187e964c30187ee1237a20007"
+  },
+  {
+    "descricao": "Fiona Buckner",
+    "data": "2024-02-18T12:11:23",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "3DFCEC4C-7AB4-673E-55DA-69B0BAE4F567",
+    "valor": 9.85,
+    "clienteUuid": "ff80818187e964c30187ee0ee1be0000"
+  },
+  {
+    "descricao": "Peter Blake",
+    "data": "2023-10-30T17:30:07",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "8C9EB5A5-1098-769B-B238-2EF1C1B8DB63",
+    "valor": 40.44,
+    "clienteUuid": "ff80818187e964c30187ee0f70320002"
+  },
+  {
+    "descricao": "Thaddeus Maldonado",
+    "data": "2022-12-18T19:25:50",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4A",
+    "valor": -131.26,
+    "clienteUuid": "ff80818187e964c30187ee1237a20007"
+  },
+  {
+    "descricao": "Emi Mendez",
+    "data": "2024-01-21T05:04:15",
+    "funilUuid": "6A342C0C-B728-4286-B5A9-4EF67B6154F2",
+    "etapaDoFunilUuid": "B4BC5446-8195-16C7-3B89-CE18EE612CCA",
+    "valor": 6.08,
+    "clienteUuid": "ff80818187e964c30187ee0ee1be0000"
+  },
+  {
+    "descricao": "Debra Hernandez",
+    "data": "2023-03-15T14:34:30",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "8C9EB5A5-1098-769B-B238-2EF1C1B8DB63",
+    "valor": -28.09,
+    "clienteUuid": "ff80818187e964c30187ee0fe3800005"
+  },
+  {
+    "descricao": "Claire Keller",
+    "data": "2023-12-21T18:25:25",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "B4BC5446-8195-16C7-3B89-CE18EE612CCA",
+    "valor": -12.36,
+    "clienteUuid": "ff80818187e964c30187ee1359220009"
+  },
+  {
+    "descricao": "Jaquelyn Lawson",
+    "data": "2023-08-12T21:27:55",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4b",
+    "valor": 75.68,
+    "clienteUuid": "ff80818187e964c30187ee0fa9910003"
+  },
+  {
+    "descricao": "Xyla Emerson",
+    "data": "2023-01-11T07:25:14",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "8C9EB5A5-1098-769B-B238-2EF1C1B8DB63",
+    "valor": -9.01,
+    "clienteUuid": "ff80818187e964c30187ee1237a20007"
+  },
+  {
+    "descricao": "Elmo Ryan",
+    "data": "2022-09-20T07:25:28",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "3DFCEC4C-7AB4-673E-55DA-69B0BAE4F568",
+    "valor": -62.15,
+    "clienteUuid": "ff80818187e964c30187ee0fe3800005"
+  },
+  {
+    "descricao": "Kato Richards",
+    "data": "2023-06-06T14:05:41",
+    "funilUuid": "6A342C0C-B728-4286-B5A9-4EF67B6154F2",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4b",
+    "valor": 31.87,
+    "clienteUuid": "ff80818187e964c30187ee1359220010"
+  },
+  {
+    "descricao": "Irene Hanson",
+    "data": "2023-05-17T06:06:04",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "8C9EB5A5-1098-769B-B238-2EF1C1B8DB64",
+    "valor": 19.99,
+    "clienteUuid": "ff80818187e964c30187ee0f70320002"
+  },
+  {
+    "descricao": "Larissa Rowe",
+    "data": "2023-12-01T16:59:03",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "8C9EB5A5-1098-769B-B238-2EF1C1B8DB63",
+    "valor": 82.50,
+    "clienteUuid": "ff80818187e964c30187ee0f70320002"
+  },
+  {
+    "descricao": "Edan Blake",
+    "data": "2023-01-23T01:19:16",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4b",
+    "valor": 52.90,
+    "clienteUuid": "ff80818187e964c30187ee1237a20007"
+  },
+  {
+    "descricao": "Leslie Bradshaw",
+    "data": "2023-02-16T00:00:46",
+    "funilUuid": "6A342C0C-B728-4286-B5A9-4EF67B6154F2",
+    "etapaDoFunilUuid": "6982CF25-5D92-C4C3-7C8A-C3C7ED8BB341",
+    "valor": -0.04,
+    "clienteUuid": "ff80818187e964c30187ee0f3a4c0001"
+  },
+  {
+    "descricao": "Cedric Macias",
+    "data": "2023-04-07T23:21:26",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "8C9EB5A5-1098-769B-B238-2EF1C1B8DB63",
+    "valor": 26.26,
+    "clienteUuid": "ff80818187e964c30187ee133b130008"
+  },
+  {
+    "descricao": "Caldwell Steele",
+    "data": "2022-06-23T19:56:44",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "6982CF25-5D92-C4C3-7C8A-C3C7ED8BB341",
+    "valor": 25.17,
+    "clienteUuid": "ff80818187e964c30187ee0fa9910003"
+  },
+  {
+    "descricao": "Hyatt Villarreal",
+    "data": "2024-02-23T15:27:25",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "B4BC5446-8195-16C7-3B89-CE18EE612CCE",
+    "valor": 35.83,
+    "clienteUuid": "ff80818187e964c30187ee0fc4c40004"
+  },
+  {
+    "descricao": "Colby Harrell",
+    "data": "2023-05-24T00:06:45",
+    "funilUuid": "6A342C0C-B728-4286-B5A9-4EF67B6154F2",
+    "etapaDoFunilUuid": "6982CF25-5D92-C4C3-7C8A-C3C7ED8BB341",
+    "valor": 17.93,
+    "clienteUuid": "ff80818187e964c30187ee0f70320002"
+  },
+  {
+    "descricao": "Declan Spears",
+    "data": "2022-12-07T07:47:07",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "3DFCEC4C-7AB4-673E-55DA-69B0BAE4F568",
+    "valor": -137.97,
+    "clienteUuid": "ff80818187e964c30187ee1359220009"
+  },
+  {
+    "descricao": "Zeph Bonner",
+    "data": "2023-08-05T09:47:41",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "B4BC5446-8195-16C7-3B89-CE18EE612CCA",
+    "valor": -3.66,
+    "clienteUuid": "ff80818187e964c30187ee1359220010"
+  },
+  {
+    "descricao": "Raya Barnett",
+    "data": "2023-02-17T04:46:31",
+    "funilUuid": "6A342C0C-B728-4286-B5A9-4EF67B6154F2",
+    "etapaDoFunilUuid": "6982CF25-5D92-C4C3-7C8A-C3C7ED8BB341",
+    "valor": -48.62,
+    "clienteUuid": "ff80818187e964c30187ee133b130008"
+  },
+  {
+    "descricao": "Philip Holland",
+    "data": "2023-01-27T01:21:06",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4A",
+    "valor": 56.34,
+    "clienteUuid": "ff80818187e964c30187ee1359220009"
+  },
+  {
+    "descricao": "Yolanda Orr",
+    "data": "2023-02-10T14:50:38",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "B4BC5446-8195-16C7-3B89-CE18EE612CCA",
+    "valor": 21.79,
+    "clienteUuid": "ff80818187e964c30187ee0fa9910003"
+  },
+  {
+    "descricao": "Hedy Mcdonald",
+    "data": "2022-10-09T21:09:56",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4A",
+    "valor": -0.21,
+    "clienteUuid": "ff80818187e964c30187ee1359220009"
+  },
+  {
+    "descricao": "Idola Baird",
+    "data": "2024-03-20T11:46:23",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "B4BC5446-8195-16C7-3B89-CE18EE612CCA",
+    "valor": -72.84,
+    "clienteUuid": "ff80818187e964c30187ee133b130008"
+  },
+  {
+    "descricao": "Ariel Parrish",
+    "data": "2023-11-25T01:39:57",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "3DFCEC4C-7AB4-673E-55DA-69B0BAE4F567",
+    "valor": -22.28,
+    "clienteUuid": "ff80818187e964c30187ee0f70320002"
+  },
+  {
+    "descricao": "Sopoline Ashley",
+    "data": "2022-07-18T17:40:27",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "6982CF25-5D92-C4C3-7C8A-C3C7ED8BB340",
+    "valor": -51.17,
+    "clienteUuid": "ff80818187e964c30187ee0ee1be0000"
+  },
+  {
+    "descricao": "Rhonda Fisher",
+    "data": "2023-02-13T20:26:40",
+    "funilUuid": "B6B681E2-8D3B-863A-339E-E5BFA89875B1",
+    "etapaDoFunilUuid": "8C9EB5A5-1098-769B-B238-2EF1C1B8DB64",
+    "valor": -60.41,
+    "clienteUuid": "ff80818187e964c30187ee0ee1be0000"
+  },
+  {
+    "descricao": "Chastity Hardin",
+    "data": "2022-05-26T07:09:02",
+    "funilUuid": "A442C479-5907-D349-739D-B96F93D4F981",
+    "etapaDoFunilUuid": "D335B6A2-250E-ABE2-5A54-C56968949E4A",
+    "valor": -17.23,
+    "clienteUuid": "ff80818187e964c30187ee0ee1be0000"
+  }
+]
