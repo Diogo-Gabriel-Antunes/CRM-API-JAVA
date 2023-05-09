@@ -8,10 +8,7 @@ import lombok.Setter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -19,10 +16,9 @@ import java.util.List;
 public class EtapaDoFunil extends EntidadeGenerica implements Serializable {
 
     private String etapa;
+    private Integer nivel;
 
-    @OneToMany(mappedBy = "etapaDoFunil")
-    @JsonIgnore
-    private List<HistoricoDeEtapasFunil> historicoDeEtapasFunils = new ArrayList<>();
+    private Boolean finalizacao;
 
     private Boolean ativo;
 

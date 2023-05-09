@@ -29,4 +29,17 @@ public class FunilRepository extends Repository{
                 .setParameter("usuarioUuid",UsuarioLogado.getUsuario().getUuid())
                 .getSingleResult();
     }
+
+    public Funil findPadrao() {
+        try{
+            return em.createQuery("SELECT f FROM Funil f " +
+                    "LEFT JOIN f.usuario u " +
+                    "WHERE u.uuid = :usuarioUuid " +
+                    "AND f.padrao = true",Funil.class)
+                    .setParameter("usuarioUuid",UsuarioLogado.getUsuario().getUuid())
+                    .getSingleResult();
+        }catch (Throwable t){
+            return null;
+        }
+    }
 }

@@ -24,11 +24,12 @@ public class Funil extends EntidadeGenerica {
     private Boolean ativo;
     private Boolean padrao;
 
-    @OneToMany(mappedBy = "funil")
+    @OneToMany(mappedBy = "funil",fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<Captacao> captacaos;
+    private List<Captacao> captacaos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "funil")
+
+    @OneToMany(mappedBy = "funil",fetch = FetchType.EAGER)
     @JsonIgnore
     private List<EtapaDoFunil> etapaDoFunils = new ArrayList<>();
 

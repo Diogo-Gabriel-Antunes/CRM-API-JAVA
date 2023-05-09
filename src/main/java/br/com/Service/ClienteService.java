@@ -72,8 +72,8 @@ public class ClienteService extends Service {
                 captacao = captacaoRepository.findByCampanha(clienteDTO.getCaptacao().getCampanha().getUuid());
                 if(captacao == null){
                     captacao = new Captacao();
-                    captacao.setCampanha(new Campanha());
-                    captacao.getCampanha().setUuid(clienteDTO.getCaptacao().getCampanha().getUuid());
+                    captacao.setFunil(new Funil());
+                    captacao.getFunil().setUuid(clienteDTO.getCaptacao().getFunil().getUuid());
                 }
             }
             if(captacao != null){

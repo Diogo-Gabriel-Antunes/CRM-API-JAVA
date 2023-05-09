@@ -21,7 +21,7 @@ public class CampanhaTableIVK implements Invoker {
 
     public void invoker() {
         ivk.setUuid(campanha.getUuid());
-        ivk.setCampanha(campanha.getCampanha());
+        ivk.setCampanha(campanha.getNomeCampanha());
         if(BooleanUtils.isTrue(campanha.getAtiva())){
             ivk.setStatus("Ativo");
         }else{

@@ -18,6 +18,4 @@ public class Captacao extends EntidadeGenerica {
 
     @ManyToOne
     private Funil funil;
-    @ManyToOne
-    private Campanha campanha;
 }

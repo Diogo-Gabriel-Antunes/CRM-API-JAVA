@@ -17,7 +17,7 @@ public class SelectIVK implements Invoker {
     }
 
     public void invoker(){
-        selectIVKDTO.setLabel(campanha.getCampanha());
+        selectIVKDTO.setLabel(campanha.getNomeCampanha());
         selectIVKDTO.setValue(campanha.getUuid());
     }
 

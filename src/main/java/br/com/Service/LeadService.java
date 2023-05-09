@@ -7,6 +7,7 @@ import br.com.Infra.Exceptions.Validacoes;
 import br.com.Model.*;
 import br.com.Repository.EtapaDoFunilRepository;
 import br.com.Repository.LeadRepository;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
@@ -144,5 +145,17 @@ public class LeadService extends Service {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
+    }
+
+    public Response updateDragDrop(String uuid, String novaEtapaUuid) {
+        if(StringUtil.stringValida(novaEtapaUuid)){
+            Lead lead = leadRepository.findByUuid(uuid);
+            EtapaDoFunil etapa = EtapaDoFunil.findById(novaEtapaUuid);
+            lead.setEtapaDoFunil(etapa);
+            em.merge(lead);
+            return Response.ok(lead).build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 }

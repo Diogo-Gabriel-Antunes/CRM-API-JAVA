@@ -29,4 +29,14 @@ public class LeadRepository extends Repository{
                 .setParameter("usuarioUuid", UsuarioLogado.getUsuario().getUuid())
                 .getResultList();
     }
+
+    public Lead findByUuid(String uuid) {
+        return em.createQuery("SELECT l FROM Lead l " +
+                "LEFT JOIN l.funil f " +
+                "LEFT JOIN l.usuario u " +
+                "WHERE u.uuid = :usuarioUuid AND l.uuid = :leadUuid",Lead.class)
+                .setParameter("usuarioUuid",UsuarioLogado.getUsuario().getUuid())
+                .setParameter("leadUuid",uuid)
+                .getSingleResult();
+    }
 }

@@ -1,5 +1,7 @@
 package br.com.Service;
 
+import br.com.DTO.FunilDTO;
+import br.com.Infra.Exceptions.Validacoes;
 import br.com.Invokers.FuncIVK.FunilTableIVK;
 import br.com.Invokers.FuncIVK.SelectIVK;
 import br.com.Invokers.IVK.FunilTableIVKDTO;
@@ -8,7 +10,10 @@ import br.com.Repository.FunilRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import org.acme.Util.PrimitiveUtil.StringUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,5 +45,36 @@ public class FunilService extends Service {
             selectIVKDTOS.add(selectIVKDTO);
         }
         return Response.ok(selectIVKDTOS).build();
+    }
+
+    @Transactional
+    public Response create(String json) {
+        FunilDTO funilDTO = gson.fromJson(json, FunilDTO.class);
+        validaDTO(funilDTO);
+        Funil funil = new Funil();
+        funil.setNomeFunil(funilDTO.getNomeFunil());
+        Funil funilPadrao = funilRepository.findPadrao();
+        if(funilPadrao == null){
+            funil.setPadrao(true);
+        }else{
+            funil.setPadrao(false);
+        }
+        funil.setAtivo(true);
+        em.persist(funil);
+        return Response.ok(funil).build();
+    }
+
+    private void validaDTO(FunilDTO funilDTO) {
+        Validacoes validacoes = new Validacoes();
+        validaDTO(validacoes,funilDTO);
+        validacoes.lancaErro();
+    }
+
+    public void validaDTO(Validacoes validacoes,FunilDTO funilDTO){
+
+        if(!StringUtil.stringValida(funilDTO.getNomeFunil())){
+            validacoes.add("Nome do funil Invalido","Verifique se adicionou um nome valido");
+        }
+
     }
 }
