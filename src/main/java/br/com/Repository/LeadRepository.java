@@ -1,5 +1,6 @@
 package br.com.Repository;
 
+import br.com.Model.AnotacoesLead;
 import br.com.Model.Lead;
 import br.com.Security.DTO.UsuarioLogado;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -37,6 +38,17 @@ public class LeadRepository extends Repository{
                 "WHERE u.uuid = :usuarioUuid AND l.uuid = :leadUuid",Lead.class)
                 .setParameter("usuarioUuid",UsuarioLogado.getUsuario().getUuid())
                 .setParameter("leadUuid",uuid)
+                .getSingleResult();
+    }
+
+    public Lead getAnotacoesByUuid(String uuid) {
+        return em.createQuery("SELECT l FROM Lead l " +
+                "LEFT JOIN l.usuario u " +
+                "LEFT JOIN l.anotacoes a " +
+                "WHERE l.uuid = :leadUuid " +
+                "AND u.uuid = :usuarioUuid ",Lead.class)
+                .setParameter("leadUuid",uuid)
+                .setParameter("usuarioUuid",UsuarioLogado.getUsuario().getUuid())
                 .getSingleResult();
     }
 }

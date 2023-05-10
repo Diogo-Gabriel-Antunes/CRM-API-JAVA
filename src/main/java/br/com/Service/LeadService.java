@@ -158,4 +158,13 @@ public class LeadService extends Service {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
+
+    public Response getAnotacoes(String uuid) {
+        Lead lead = leadRepository.getAnotacoesByUuid(uuid);
+        if(lead != null){
+            return Response.ok(lead).build();
+        }else{
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+    }
 }

@@ -37,4 +37,10 @@ public class LeadResource {
     public Response updateLead(@PathParam("uuid")String uuid,@QueryParam("novaEtapaUuid")String novaEtapaUuid){
         return leadService.updateDragDrop(uuid,novaEtapaUuid);
     }
+
+    @GET
+    @Path("anotacoes/{uuid}")
+    public Response getAnotacoes(@PathParam("uuid")String uuid ){
+        return leadService.getAnotacoes(uuid);
+    }
 }

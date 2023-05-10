@@ -28,7 +28,7 @@ public class FunilService extends Service {
         List<FunilTableIVKDTO> ivk = new ArrayList<>();
         for (Funil funil : funils) {
             FunilTableIVKDTO funilTableIVKDTO = new FunilTableIVKDTO();
-            fieldUtil.invokerExecutor(new FunilTableIVK(funil,funilTableIVKDTO));
+            fieldUtil.invokerExecutor(new FunilTableIVK(funil, funilTableIVKDTO));
             ivk.add(funilTableIVKDTO);
         }
         return Response.ok(ivk).build();
@@ -41,7 +41,7 @@ public class FunilService extends Service {
 
         for (Funil funil : funils) {
             br.com.Invokers.IVK.SelectIVKDTO selectIVKDTO = new br.com.Invokers.IVK.SelectIVKDTO();
-            fieldUtil.invokerExecutor(new SelectIVK.SelectIVKFunil(funil,selectIVKDTO));
+            fieldUtil.invokerExecutor(new SelectIVK.SelectIVKFunil(funil, selectIVKDTO));
             selectIVKDTOS.add(selectIVKDTO);
         }
         return Response.ok(selectIVKDTOS).build();
@@ -54,9 +54,9 @@ public class FunilService extends Service {
         Funil funil = new Funil();
         funil.setNomeFunil(funilDTO.getNomeFunil());
         Funil funilPadrao = funilRepository.findPadrao();
-        if(funilPadrao == null){
+        if (funilPadrao == null) {
             funil.setPadrao(true);
-        }else{
+        } else {
             funil.setPadrao(false);
         }
         funil.setAtivo(true);
@@ -66,14 +66,14 @@ public class FunilService extends Service {
 
     private void validaDTO(FunilDTO funilDTO) {
         Validacoes validacoes = new Validacoes();
-        validaDTO(validacoes,funilDTO);
+        validaDTO(validacoes, funilDTO);
         validacoes.lancaErro();
     }
 
-    public void validaDTO(Validacoes validacoes,FunilDTO funilDTO){
+    public void validaDTO(Validacoes validacoes, FunilDTO funilDTO) {
 
-        if(!StringUtil.stringValida(funilDTO.getNomeFunil())){
-            validacoes.add("Nome do funil Invalido","Verifique se adicionou um nome valido");
+        if (!StringUtil.stringValida(funilDTO.getNomeFunil())) {
+            validacoes.add("Nome do funil Invalido", "Verifique se adicionou um nome valido");
         }
 
     }
