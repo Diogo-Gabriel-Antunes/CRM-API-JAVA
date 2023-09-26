@@ -12,6 +12,7 @@ import org.acme.Util.PrimitiveUtil.BooleanUtils;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,8 +75,11 @@ public class CalendarioService extends Service {
     private List<CalendarioDTO.CalendarioHorario> createCalendarioHorario(List<Compromisso> compromisso) {
         List<CalendarioDTO.CalendarioHorario> calendarioHorarioList = new ArrayList<>();
         HashMap<Horario, Compromisso> horarioCompromisso = new HashMap();
-        Boolean horarioPadrao = UsuarioLogado.getUsuario().getConfiguracao().getHorarioPadrao();
-        if (BooleanUtils.isTrue(horarioPadrao)) {
+        Boolean horarioPadrao = null;
+        if (UsuarioLogado.getUsuario() != null && UsuarioLogado.getUsuario().getConfiguracao() != null) {
+            horarioPadrao = UsuarioLogado.getUsuario().getConfiguracao().getHorarioPadrao();
+        }
+        if (BooleanUtils.isTrue(horarioPadrao) || UsuarioLogado.getUsuario().getConfiguracao() == null) {
             List<Horario> horariosPadrao = getHorariosPadrao();
             for (Horario horario : horariosPadrao) {
                 horarioCompromisso.put(horario, new Compromisso());
@@ -100,7 +104,7 @@ public class CalendarioService extends Service {
         horarioCompromisso.forEach((key, value) -> {
             CalendarioDTO.CalendarioHorario calendarioHorario = new CalendarioDTO.CalendarioHorario();
             calendarioHorario.setHorario(key);
-           calendarioHorario.setCompromisso(value);
+            calendarioHorario.setCompromisso(value);
             calendarioHorarioList.add(calendarioHorario);
         });
         return calendarioHorarioList;

@@ -40,7 +40,6 @@ public class Oportunidade extends EntidadeGenerica implements Serializable {
 
     private Double valor;
 
-
     @OneToMany(mappedBy = "oportunidade")
     @JsonIgnore
     private List<HistoricoDeEtapasFunil> historicoDeEtapasFunils = new ArrayList<>();

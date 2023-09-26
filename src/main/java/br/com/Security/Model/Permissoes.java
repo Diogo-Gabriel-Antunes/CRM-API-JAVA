@@ -18,8 +18,8 @@ public class Permissoes extends EntidadeGenerica {
     private Boolean insercao;
     private Boolean edicao;
     private Boolean exclusao;
-    @ManyToOne
-    private Rota rota;
+    @ManyToMany
+    private List<Modulo> modulo;
     @ManyToMany(mappedBy = "permissoes")
     private List<Usuario> usuarios;
 }

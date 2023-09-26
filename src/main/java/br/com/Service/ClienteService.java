@@ -1,13 +1,12 @@
 package br.com.Service;
 
-import br.com.DTO.ClienteDTO;
-import br.com.DTO.ClienteModalDTO;
-import br.com.DTO.ContatoDTO;
-import br.com.DTO.EnderecoDTO;
+import br.com.DTO.*;
 import br.com.Infra.Exceptions.Validacoes;
 import br.com.Model.*;
 import br.com.Repository.CaptacaoRepository;
 import br.com.Repository.ClienteRepository;
+import br.com.Repository.EtapaDoFunilRepository;
+import br.com.Repository.FunilRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -28,13 +27,47 @@ public class ClienteService extends Service {
     @Inject
     private CaptacaoRepository captacaoRepository;
 
+    @Inject
+    private FunilRepository funilRepository;
+
+
+    @Inject
+    private EtapaDoFunilRepository etapaDoFunilRepository;
+
     @Transactional
     public Response create(String json) {
-        ClienteDTO clienteDTO = gson.fromJson(json, ClienteDTO.class);
-        validaDTO(clienteDTO);
-        Cliente cliente = montaCliente(clienteDTO);
+        ClienteAgendamentoDTO clienteAgendamentoDTO = gson.fromJson(json, ClienteAgendamentoDTO.class);
+        validaDTO(clienteAgendamentoDTO.getCliente());
+        Cliente cliente = montaCliente(clienteAgendamentoDTO.getCliente());
         cliente = clienteRepository.saveCliente(cliente);
+        Compromisso compromisso = montaCompromisso(clienteAgendamentoDTO.getAgendamento(),cliente);
         return Response.ok(cliente).build();
+    }
+
+    private Compromisso montaCompromisso(ClienteAgendamentoDTO.AgendamentoDTO agendamento, Cliente cliente) {
+        Compromisso compromisso = new Compromisso();
+        compromisso.setInicioCompromisso(agendamento.getDataAgendamento());
+        compromisso.setFimCompromisso(agendamento.getDataAgendamento().plusHours(1));
+
+        if(ClienteAgendamentoDTO.TipoAgendamento.TAREFA.equals(agendamento.getTipoAgendamento())){
+            compromisso.setTipoCompromisso(Compromisso.TipoCompromisso.TAREFA);
+            Tarefa tarefa = new Tarefa();
+            tarefa.setCliente(cliente);
+            tarefa.setTipoDeTarefa(agendamento.getTipoDaTarefa());
+            tarefa.setHoraMarcada(agendamento.getDataAgendamento());
+        }else{
+            compromisso.setTipoCompromisso(Compromisso.TipoCompromisso.OPORTUNIDADE);
+            Oportunidade oportunidade = new Oportunidade();
+            oportunidade.setCliente(cliente);
+            Funil funil = funilRepository.findByUuid(agendamento.getFunilUuid());
+            EtapaDoFunil etapaDoFunil = etapaDoFunilRepository.findByUuid(agendamento.getEtapaDoFunilUuid());
+            oportunidade.setEtapaDoFunil(etapaDoFunil);
+            oportunidade.setFunil(funil);
+        }
+
+        em.persist(compromisso);
+
+        return compromisso;
     }
 
 

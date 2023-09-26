@@ -3,17 +3,13 @@ package br.com.Security.Resource;
 import br.com.Security.Builder.FactoryResponseLogin;
 import br.com.Security.Service.JWTService;
 import br.com.Security.Service.LoginService;
-import org.acme.Util.PrimitiveUtil.StringUtil;
-import org.acme.response.ResponseFactory;
-
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
+import org.acme.Util.PrimitiveUtil.StringUtil;
 
 @Path("login")
 public class LoginResource {

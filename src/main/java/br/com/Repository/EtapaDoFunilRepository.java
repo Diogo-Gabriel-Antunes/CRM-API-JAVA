@@ -53,4 +53,12 @@ public class EtapaDoFunilRepository extends Repository{
                 .setParameter("usuarioUuid",UsuarioLogado.getUsuario().getUuid())
                 .getResultList();
     }
+
+    public List<EtapaDoFunil> findAll() {
+        return em.createQuery("SELECT e FROM EtapaDoFunil e " +
+                        "LEFT JOIN e.usuario u " +
+                        "WHERE u.uuid = :usuarioUuid",EtapaDoFunil.class)
+                .setParameter("usuarioUuid",UsuarioLogado.getUsuario().getUuid())
+                .getResultList();
+    }
 }

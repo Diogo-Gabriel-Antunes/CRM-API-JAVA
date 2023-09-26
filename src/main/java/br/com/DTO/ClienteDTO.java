@@ -16,7 +16,6 @@ import jakarta.persistence.OneToOne;
 @Setter
 public class ClienteDTO  {
     private String uuid;
-
     private String nome;
     private String sobrenome;
     private ContatoDTO contato;
