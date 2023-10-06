@@ -3,8 +3,10 @@ package br.com.Service;
 import br.com.DTO.EtapaDoFunilDTO;
 import br.com.Infra.Exceptions.Validacoes;
 import br.com.Invokers.FuncIVK.EtapaFunilTableIVK;
+import br.com.Invokers.FuncIVK.FuncTableEtapaFunilIVK;
 import br.com.Invokers.FuncIVK.SelectIVK;
 import br.com.Invokers.IVK.EtapaFunilTableIVKDTO;
+import br.com.Invokers.IVK.TableEtapaFunilIVK;
 import br.com.Model.EtapaDoFunil;
 import br.com.Repository.EtapaDoFunilRepository;
 
@@ -29,7 +31,15 @@ public class EtapaDoFunilService extends Service {
     public Response findAll(String funilUuid) {
         List<EtapaDoFunil> funils = etapaDoFunilRepository.findAll(funilUuid);
 
-        return Response.ok(funils).build();
+        List<TableEtapaFunilIVK> tableEtapaFunils = new ArrayList<>();
+
+        for (EtapaDoFunil funil : funils) {
+            TableEtapaFunilIVK tableEtapaFunilIVK = new TableEtapaFunilIVK();
+            fieldUtil.invokerExecutor(new FuncTableEtapaFunilIVK(tableEtapaFunilIVK,funil));
+            tableEtapaFunils.add(tableEtapaFunilIVK);
+        }
+
+        return Response.ok(tableEtapaFunils).build();
 
     }
 

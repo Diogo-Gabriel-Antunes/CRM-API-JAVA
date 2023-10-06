@@ -7,6 +7,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 
 import jakarta.inject.Inject;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
@@ -21,8 +22,8 @@ public class ClienteResource {
 
 
     @GET
-    public Response listAll(){
-        List<Cliente> clientes = clienteRepository.findAllByUsuario();
+    public Response listAll(@QueryParam("offset") Integer offset){
+        List<Cliente> clientes = clienteRepository.findAllByUsuario(offset);
         if(clientes.isEmpty()){
             return Response.noContent().build();
         }else{
@@ -56,5 +57,12 @@ public class ClienteResource {
     @Path("modal")
     public Response getClientesModal(){
         return clienteService.clientesModal();
+    }
+
+
+    @DELETE
+    @Path("{uuid}")
+    public Response deleteClientes(@PathParam("uuid")String uuid){
+        return clienteService.delete(uuid);
     }
 }

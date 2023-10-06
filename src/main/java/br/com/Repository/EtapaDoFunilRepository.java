@@ -14,8 +14,7 @@ public class EtapaDoFunilRepository extends Repository{
                         "LEFT JOIN ef.usuario u " +
                         "LEFT JOIN ef.funil f " +
                         "WHERE u.uuid = :uuidUsuario " +
-                        "AND f.uuid = :uuidFunil " +
-                        "AND ef.ativo = true", EtapaDoFunil.class)
+                        "AND f.uuid = :uuidFunil ", EtapaDoFunil.class)
                 .setParameter("uuidUsuario", UsuarioLogado.getUsuario().getUuid())
                 .setParameter("uuidFunil",uuidFunil)
                 .getResultList();

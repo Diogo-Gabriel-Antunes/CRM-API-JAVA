@@ -12,6 +12,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import org.acme.Util.PrimitiveUtil.BooleanUtils;
 import org.acme.Util.PrimitiveUtil.StringUtil;
 
 import java.util.ArrayList;
@@ -23,10 +24,15 @@ public class FunilService extends Service {
     @Inject
     private FunilRepository funilRepository;
 
-    public Response findAll() {
-        List<Funil> funils = funilRepository.findAll();
+    public Response findAll(Integer offset, Boolean soAtivo) {
+        List<Funil> funils = null;
+        if(BooleanUtils.isTrue(soAtivo)){
+            funils = funilRepository.findAllSoAtivo(offset);
+        }else{
+            funils = funilRepository.findAll(offset);
+        }
         List<FunilTableIVKDTO> ivk = new ArrayList<>();
-        for (Funil funil : funils) {
+            for (Funil funil : funils) {
             FunilTableIVKDTO funilTableIVKDTO = new FunilTableIVKDTO();
             fieldUtil.invokerExecutor(new FunilTableIVK(funil, funilTableIVKDTO));
             ivk.add(funilTableIVKDTO);

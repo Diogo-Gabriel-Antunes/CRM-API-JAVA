@@ -44,9 +44,10 @@ public class ClienteRepository implements PanacheRepositoryBase<Cliente, String>
         return cliente;
     }
 
-    public List<Cliente> findAllByUsuario() {
-        return em.createQuery("SELECT c FROM Cliente c LEFT JOIN c.usuario u WHERE u.uuid = :usuarioUuid",Cliente.class)
+    public List<Cliente> findAllByUsuario(Integer offset) {
+        return em.createQuery("SELECT c FROM Cliente c LEFT JOIN c.usuario u WHERE u.uuid = :usuarioUuid ORDER BY c.dataIntegracao ASC LIMIT 20 OFFSET :offset",Cliente.class)
                 .setParameter("usuarioUuid", UsuarioLogado.getUsuario().getUuid())
+                .setParameter("offset", offset)
                 .getResultList();
     }
 

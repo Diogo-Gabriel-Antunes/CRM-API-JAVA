@@ -11,4 +11,8 @@ public class FunilTableIVKDTO {
     private String integracoes;
     private String padrao;
     private Integer quantidadeEtapas;
+    private Integer quantiadeCaptacoes;
+    private String nomeCampanha;
+    private String ativo;
+
 }

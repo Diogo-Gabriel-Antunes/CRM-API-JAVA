@@ -13,7 +13,7 @@ public class ClienteAgendamentoDTO {
 
     @Data
     public static class AgendamentoDTO{
-        private String tipoAgendamento;
+        private TipoAgendamento tipoAgendamento;
         private LocalDateTime dataAgendamento;
         private Tarefa.TipoDeTarefa tipoDaTarefa;
         private String funilUuid;

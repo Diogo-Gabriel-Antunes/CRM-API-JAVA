@@ -52,17 +52,29 @@ public class ClienteService extends Service {
         if(ClienteAgendamentoDTO.TipoAgendamento.TAREFA.equals(agendamento.getTipoAgendamento())){
             compromisso.setTipoCompromisso(Compromisso.TipoCompromisso.TAREFA);
             Tarefa tarefa = new Tarefa();
-            tarefa.setCliente(cliente);
+            if(cliente !=null){
+                tarefa.setCliente(cliente);
+            }
             tarefa.setTipoDeTarefa(agendamento.getTipoDaTarefa());
             tarefa.setHoraMarcada(agendamento.getDataAgendamento());
+            em.persist(tarefa);
+            compromisso.setTarefas(tarefa);
         }else{
             compromisso.setTipoCompromisso(Compromisso.TipoCompromisso.OPORTUNIDADE);
             Oportunidade oportunidade = new Oportunidade();
-            oportunidade.setCliente(cliente);
-            Funil funil = funilRepository.findByUuid(agendamento.getFunilUuid());
-            EtapaDoFunil etapaDoFunil = etapaDoFunilRepository.findByUuid(agendamento.getEtapaDoFunilUuid());
-            oportunidade.setEtapaDoFunil(etapaDoFunil);
-            oportunidade.setFunil(funil);
+            if(cliente != null){
+                oportunidade.setCliente(cliente);
+            }
+            if(StringUtil.stringValida(agendamento.getFunilUuid())){
+                Funil funil = funilRepository.findByUuid(agendamento.getFunilUuid());
+                oportunidade.setFunil(funil);
+            }
+            if(StringUtil.stringValida(agendamento.getEtapaDoFunilUuid())){
+                EtapaDoFunil etapaDoFunil = etapaDoFunilRepository.findByUuid(agendamento.getEtapaDoFunilUuid());
+                oportunidade.setEtapaDoFunil(etapaDoFunil);
+            }
+            em.persist(oportunidade);
+            compromisso.setOportunidades(oportunidade);
         }
 
         em.persist(compromisso);
@@ -178,5 +190,15 @@ public class ClienteService extends Service {
     public Response clientesModal() {
         List<ClienteModalDTO> clienteModalDTOS = this.clienteRepository.findClienteModal();
         return Response.ok(clienteModalDTOS).build();
+    }
+
+    @Transactional
+    public Response delete(String uuid) {
+        if(StringUtil.stringValida(uuid)){
+            clienteRepository.findByUuid(uuid).delete();
+            return Response.ok().build();
+        }else{
+            return Response.status(404).build();
+        }
     }
 }
