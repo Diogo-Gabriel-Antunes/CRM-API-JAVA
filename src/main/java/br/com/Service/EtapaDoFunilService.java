@@ -88,11 +88,12 @@ public class EtapaDoFunilService extends Service {
     public EtapaDoFunil createEtapaFunil(EtapaDoFunilDTO dto) {
         EtapaDoFunil etapaDoFunil = new EtapaDoFunil();
         etapaDoFunil.setEtapa(dto.getEtapa());
-        etapaDoFunil.setAtivo(dto.getAtivo());
+        etapaDoFunil.setAtivo(true);
         if (dto.getFunil() != null && StringUtil.stringValida(dto.getFunil().getUuid())) {
             etapaDoFunil.setFunil(funilRepository.findByUuid(dto.getFunil().getUuid()));
         }
-
+        etapaDoFunil.setNivel(Integer.parseInt(dto.getNivel()));
+        etapaDoFunil.setFinalizacao(dto.getFinalizacao());
         return etapaDoFunil;
     }
 

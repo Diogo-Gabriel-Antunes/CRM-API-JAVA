@@ -15,6 +15,8 @@ import java.util.List;
 public class EtapaDoFunilDTO {
     private String uuid;
     private String etapa;
+    private String nivel;
     private Boolean ativo;
     private FunilDTO funil;
+    private Boolean finalizacao;
 }

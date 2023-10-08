@@ -19,7 +19,11 @@ public class EtapaDoFunilResource {
     public Response listAll(@QueryParam("funilUuid") String funilUuid){
         return  etapaDoFunilService.findAll(funilUuid);
     }
-
+    @GET
+    @Path("{uuid}")
+    public Response getOne(@PathParam("uuid") String uuid){
+        return null;
+    }
     @POST
     @Transactional
     public Response create(String json){
@@ -55,4 +59,5 @@ public class EtapaDoFunilResource {
     public Response etapasDoFunilByLead(@QueryParam("funilUuid")String funilUuid){
         return etapaDoFunilService.etapasFunilByLead(funilUuid);
     }
+
 }
