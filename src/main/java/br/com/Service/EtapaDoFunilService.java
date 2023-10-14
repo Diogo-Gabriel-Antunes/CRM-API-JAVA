@@ -35,7 +35,7 @@ public class EtapaDoFunilService extends Service {
 
         for (EtapaDoFunil funil : funils) {
             TableEtapaFunilIVK tableEtapaFunilIVK = new TableEtapaFunilIVK();
-            fieldUtil.invokerExecutor(new FuncTableEtapaFunilIVK(tableEtapaFunilIVK,funil));
+            fieldUtil.invokerExecutor(new FuncTableEtapaFunilIVK(tableEtapaFunilIVK, funil));
             tableEtapaFunils.add(tableEtapaFunilIVK);
         }
 
@@ -45,9 +45,9 @@ public class EtapaDoFunilService extends Service {
 
     public Response findBySelect(String funilUuid) {
         List<EtapaDoFunil> etapaDoFunils = null;
-        if(funilUuid != null){
+        if (funilUuid != null) {
             etapaDoFunils = etapaDoFunilRepository.findAll(funilUuid);
-        }else{
+        } else {
             etapaDoFunils = etapaDoFunilRepository.findByFunilPadrao();
         }
         List<br.com.Invokers.IVK.SelectIVKDTO> selectIVKDTOS = new ArrayList<>();
@@ -62,9 +62,9 @@ public class EtapaDoFunilService extends Service {
 
     public Response listByFunil(String funilUuid) {
         List<EtapaDoFunil> etapaDoFunils = null;
-        if(funilUuid != null){
+        if (funilUuid != null) {
             etapaDoFunils = etapaDoFunilRepository.findByFunil(funilUuid);
-        }else{
+        } else {
             etapaDoFunils = etapaDoFunilRepository.findByFunilPadrao();
         }
 
@@ -143,10 +143,41 @@ public class EtapaDoFunilService extends Service {
         } else {
             etapas = etapaDoFunilRepository.findByFunilPadrao();
         }
-        if (etapas ==  null || etapas.isEmpty()){
+        if (etapas == null || etapas.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST).build();
-        }else{
+        } else {
             return Response.ok(etapas).build();
         }
+    }
+
+    public Response findOne(String uuid) {
+
+        EtapaDoFunil etapaDoFunil = etapaDoFunilRepository.findByUuid(uuid);
+        if (etapaDoFunil == null) {
+            throw new IllegalStateException("Etapa não encontrada");
+        } else {
+            return Response.ok(etapaDoFunil).build();
+        }
+    }
+
+    public Response update(String uuid, String json) {
+        EtapaDoFunilDTO etapaDoFunilDTO = gson.fromJson(json, EtapaDoFunilDTO.class);
+        EtapaDoFunil etapaDoFunil = etapaDoFunilRepository.findByUuid(uuid);
+
+        updateEtapaDoFunil(etapaDoFunilDTO, etapaDoFunil);
+        em.persist(etapaDoFunil);
+        return Response.ok(etapaDoFunil).build();
+    }
+
+    private void updateEtapaDoFunil(EtapaDoFunilDTO etapaDoFunilDTO, EtapaDoFunil etapaDoFunil) {
+        etapaDoFunil.setEtapa(etapaDoFunilDTO.getEtapa());
+        etapaDoFunil.setNivel(Integer.parseInt(etapaDoFunilDTO.getNivel()));
+        etapaDoFunil.setAtivo(etapaDoFunilDTO.getAtivo());
+        etapaDoFunil.setFinalizacao(etapaDoFunilDTO.getFinalizacao());
+    }
+
+    public Response delete(String uuid) {
+        etapaDoFunilRepository.findByUuid(uuid).delete();
+        return Response.ok().build();
     }
 }

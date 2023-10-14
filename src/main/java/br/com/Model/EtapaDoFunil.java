@@ -8,12 +8,14 @@ import lombok.Setter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import org.acme.Util.InterfacesUtil.Model;
+
 import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
-public class EtapaDoFunil extends EntidadeGenerica implements Serializable {
+public class EtapaDoFunil extends EntidadeGenerica implements Serializable, Model {
 
     private String etapa;
     private Integer nivel;

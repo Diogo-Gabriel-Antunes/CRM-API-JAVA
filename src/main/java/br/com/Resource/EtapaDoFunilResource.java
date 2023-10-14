@@ -22,7 +22,14 @@ public class EtapaDoFunilResource {
     @GET
     @Path("{uuid}")
     public Response getOne(@PathParam("uuid") String uuid){
-        return null;
+        return etapaDoFunilService.findOne(uuid);
+    }
+
+    @PUT
+    @Path("{uuid}")
+    @Transactional
+    public Response update(@PathParam("uuid") String uuid,String json){
+        return etapaDoFunilService.update(uuid,json);
     }
     @POST
     @Transactional
@@ -58,6 +65,14 @@ public class EtapaDoFunilResource {
     @Path("lead")
     public Response etapasDoFunilByLead(@QueryParam("funilUuid")String funilUuid){
         return etapaDoFunilService.etapasFunilByLead(funilUuid);
+    }
+
+
+    @DELETE
+    @Path("{uuid}")
+    @Transactional
+    public Response delete(@PathParam("uuid") String uuid){
+     return etapaDoFunilService.delete(uuid);
     }
 
 }
