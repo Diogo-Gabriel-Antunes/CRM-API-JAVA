@@ -36,20 +36,14 @@ public class EtapaDoFunilResource {
     public Response create(String json){
         return etapaDoFunilService.create(json);
     }
-    @PUT
-    @Path("desativar/{uuid}")
-    @Transactional
-    public Response updateDesativar(@PathParam("uuid")String uuid){
-        return etapaDoFunilService.desativar(uuid);
-    }
-    @PUT
-    @Path("ativar/{uuid}")
-    @Transactional
-    public Response updateAtivar(@PathParam("uuid")String uuid){
-        return etapaDoFunilService.ativar(uuid);
-    }
 
-    @GET
+
+    @PUT
+    @Path("alterar-ativo/{uuid}")
+    @Transactional
+    public Response alterarAtivo(@PathParam("uuid") String uuid){
+        return etapaDoFunilService.alterarAtivo(uuid);
+    }
     @Path("select")
     public Response listForSelect(@QueryParam("funilUuid") String funilUuid){
         return etapaDoFunilService.findBySelect(funilUuid);

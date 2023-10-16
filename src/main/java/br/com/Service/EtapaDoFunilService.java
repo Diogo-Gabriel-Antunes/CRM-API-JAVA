@@ -14,6 +14,7 @@ import br.com.Repository.FunilRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
+import org.acme.Util.PrimitiveUtil.BooleanUtils;
 import org.acme.Util.PrimitiveUtil.StringUtil;
 
 import java.util.ArrayList;
@@ -121,20 +122,7 @@ public class EtapaDoFunilService extends Service {
         }
     }
 
-    public Response desativar(String uuid) {
-        EtapaDoFunil etapaDoFunil = etapaDoFunilRepository.findByUuid(uuid);
-        etapaDoFunil.setAtivo(false);
-        em.persist(etapaDoFunil);
-        return Response.ok(etapaDoFunil).build();
 
-    }
-
-    public Response ativar(String uuid) {
-        EtapaDoFunil etapaDoFunil = etapaDoFunilRepository.findByUuid(uuid);
-        etapaDoFunil.setAtivo(true);
-        em.persist(etapaDoFunil);
-        return Response.ok(etapaDoFunil).build();
-    }
 
     public Response etapasFunilByLead(String funilUuid) {
         List<EtapaDoFunil> etapas = null;
@@ -180,4 +168,17 @@ public class EtapaDoFunilService extends Service {
         etapaDoFunilRepository.findByUuid(uuid).delete();
         return Response.ok().build();
     }
+
+    public Response alterarAtivo(String uuid) {
+        EtapaDoFunil etapaDoFunil = etapaDoFunilRepository.findByUuid(uuid);
+
+        if(BooleanUtils.isTrue(etapaDoFunil.getAtivo())){
+            etapaDoFunil.setAtivo(false);
+        }else{
+            etapaDoFunil.setAtivo(true);
+        }
+        em.persist(etapaDoFunil);
+        return Response.ok().build();
+    }
+
 }
