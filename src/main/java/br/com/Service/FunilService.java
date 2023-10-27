@@ -6,8 +6,10 @@ import br.com.Invokers.FuncIVK.FunilTableIVK;
 import br.com.Invokers.FuncIVK.SelectIVK;
 import br.com.Invokers.IVK.FunilTableIVKDTO;
 import br.com.Model.Funil;
+import br.com.Model.Integracoes;
 import br.com.Repository.FunilRepository;
 
+import br.com.Repository.IntegracoesRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -24,15 +26,21 @@ public class FunilService extends Service {
     @Inject
     private FunilRepository funilRepository;
 
+    @Inject
+    private IntegracoesService integracoesService;
+
+    @Inject
+    private IntegracoesRepository integracoesRepository;
+
     public Response findAll(Integer offset, Boolean soAtivo) {
         List<Funil> funils = null;
-        if(BooleanUtils.isTrue(soAtivo)){
+        if (BooleanUtils.isTrue(soAtivo)) {
             funils = funilRepository.findAllSoAtivo(offset);
-        }else{
+        } else {
             funils = funilRepository.findAll(offset);
         }
         List<FunilTableIVKDTO> ivk = new ArrayList<>();
-            for (Funil funil : funils) {
+        for (Funil funil : funils) {
             FunilTableIVKDTO funilTableIVKDTO = new FunilTableIVKDTO();
             fieldUtil.invokerExecutor(new FunilTableIVK(funil, funilTableIVKDTO));
             ivk.add(funilTableIVKDTO);
@@ -57,6 +65,12 @@ public class FunilService extends Service {
     public Response create(String json) {
         FunilDTO funilDTO = gson.fromJson(json, FunilDTO.class);
         validaDTO(funilDTO);
+        Funil funil = montarFunil(funilDTO);
+        em.persist(funil);
+        return Response.ok(funil).build();
+    }
+
+    private Funil montarFunil(FunilDTO funilDTO) {
         Funil funil = new Funil();
         funil.setNomeFunil(funilDTO.getNomeFunil());
         Funil funilPadrao = funilRepository.findPadrao();
@@ -66,8 +80,50 @@ public class FunilService extends Service {
             funil.setPadrao(false);
         }
         funil.setAtivo(true);
-        em.persist(funil);
-        return Response.ok(funil).build();
+
+        funil.setIntegracoes(montaIntegracoes(funilDTO));
+        funil.setListaIntegracoes(montaLsIntegracoes(funilDTO));
+        return funil;
+    }
+
+    private String montaLsIntegracoes(FunilDTO funilDTO) {
+        String ls = "";
+        for (String integracao : funilDTO.getIntegracoes()) {
+            if (ls == "") {
+                ls = integracao;
+            } else {
+                ls += "," + integracao;
+            }
+        }
+        return ls;
+    }
+
+    private List<Integracoes> montaIntegracoes(FunilDTO funilDTO) {
+        integracoesService.setupPadrao();
+        List<Integracoes> integracoes = new ArrayList<Integracoes>();
+        for (String integracoe : funilDTO.getIntegracoes()) {
+            if (integracoe.equals("whatsapp")) {
+                Integracoes newWpp = new Integracoes();
+                newWpp.setWhatsapp(true);
+                integracoesRepository.persist(newWpp);
+                integracoes.add(newWpp);
+            }
+
+            if (integracoe.equals("email")) {
+                Integracoes newEmail = new Integracoes();
+                newEmail.setEmail(true);
+                integracoesRepository.persist(newEmail);
+                integracoes.add(newEmail);
+            }
+
+            if (integracoe.equals("google-meet")) {
+                Integracoes newGoogleMeet = new Integracoes();
+                newGoogleMeet.setGoogleMeet(true);
+                integracoesRepository.persist(newGoogleMeet);
+                integracoes.add(newGoogleMeet);
+            }
+        }
+        return integracoes;
     }
 
     private void validaDTO(FunilDTO funilDTO) {
@@ -82,5 +138,15 @@ public class FunilService extends Service {
             validacoes.add("Nome do funil Invalido", "Verifique se adicionou um nome valido");
         }
 
+    }
+
+    public Response getOne(String uuid) {
+        Funil funil = funilRepository.findByUuid(uuid);
+
+        if (funil == null) {
+            return Response.noContent().build();
+        } else {
+            return Response.ok(funil).build();
+        }
     }
 }

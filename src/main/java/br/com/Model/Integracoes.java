@@ -13,4 +13,5 @@ public class Integracoes extends EntidadeGenerica {
 
     private Boolean whatsapp;
     private Boolean email;
+    private Boolean googleMeet;
 }

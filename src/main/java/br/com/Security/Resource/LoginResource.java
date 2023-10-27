@@ -28,6 +28,7 @@ public class LoginResource {
         if(StringUtil.stringValida(authorization)){
             String token = jwtService.validaHeaderAndReturnToken(authorization);
             if(StringUtil.stringValida(token)){
+                String subject = jwtService.getSubject(token);
                 return FactoryResponseLogin.acessoPermitido(token);
             }else{
                 return FactoryResponseLogin.semPermissaoGeral();

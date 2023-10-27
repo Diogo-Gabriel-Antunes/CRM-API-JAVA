@@ -21,23 +21,23 @@ public class FunilTableIVK implements Invoker {
         dto.setUuid(funil.getUuid());
         dto.setNomeFunil(funil.getNomeFunil());
 
-        for (Integracoes integracoe : funil.getIntegracoes()) {
-            if (dto.getIntegracoes().isEmpty()) {
-                if (BooleanUtils.isTrue(integracoe.getEmail())) {
-                    dto.setIntegracoes("E-mail");
-                }
-                if (BooleanUtils.isTrue(integracoe.getWhatsapp())) {
-                    dto.setIntegracoes(dto.getIntegracoes().isEmpty() ? "WhastApp" : ", WhatsApp");
-                }
-            } else {
-                if (BooleanUtils.isTrue(integracoe.getEmail())) {
-                    dto.setIntegracoes(", E-mail");
-                }
-                if (BooleanUtils.isTrue(integracoe.getWhatsapp())) {
-                    dto.setIntegracoes(", WhatsApp");
-                }
-            }
-        }
+//        for (Integracoes integracoe : funil.getIntegracoes()) {
+//            if (dto.getIntegracoes().isEmpty()) {
+//                if (BooleanUtils.isTrue(integracoe.getEmail())) {
+//                    dto.setIntegracoes("E-mail");
+//                }
+//                if (BooleanUtils.isTrue(integracoe.getWhatsapp())) {
+//                    dto.setIntegracoes(dto.getIntegracoes().isEmpty() ? "WhastApp" : ", WhatsApp");
+//                }
+//            } else {
+//                if (BooleanUtils.isTrue(integracoe.getEmail())) {
+//                    dto.setIntegracoes(", E-mail");
+//                }
+//                if (BooleanUtils.isTrue(integracoe.getWhatsapp())) {
+//                    dto.setIntegracoes(", WhatsApp");
+//                }
+//            }
+//        }
         if (funil.getPadrao() != null && funil.getPadrao()) {
             dto.setPadrao("Padrão");
         } else {
