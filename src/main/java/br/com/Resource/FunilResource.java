@@ -35,4 +35,10 @@ public class FunilResource {
     public Response create(String json){
         return funilService.create(json);
     }
+
+    @DELETE
+    @Path("{uuid}")
+    public Response delete(@PathParam("uuid") String uuid){
+        return funilService.delete(uuid);
+    }
 }

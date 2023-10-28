@@ -13,6 +13,7 @@ import br.com.Repository.IntegracoesRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.NoContentException;
 import jakarta.ws.rs.core.Response;
 import org.acme.Util.PrimitiveUtil.BooleanUtils;
 import org.acme.Util.PrimitiveUtil.StringUtil;
@@ -39,7 +40,7 @@ public class FunilService extends Service {
         } else {
             funils = funilRepository.findAll(offset);
         }
-        List<FunilTableIVKDTO> ivk = new ArrayList<>();
+         List<FunilTableIVKDTO> ivk = new ArrayList<>();
         for (Funil funil : funils) {
             FunilTableIVKDTO funilTableIVKDTO = new FunilTableIVKDTO();
             fieldUtil.invokerExecutor(new FunilTableIVK(funil, funilTableIVKDTO));
@@ -146,6 +147,18 @@ public class FunilService extends Service {
         if (funil == null) {
             return Response.noContent().build();
         } else {
+            return Response.ok(funil).build();
+        }
+    }
+
+    @Transactional
+    public Response delete(String uuid) {
+        Funil funil = funilRepository.findByUuid(uuid);
+
+        if(funil == null) {
+            return Response.status(404).build();
+        }else{
+            funil.delete();
             return Response.ok(funil).build();
         }
     }

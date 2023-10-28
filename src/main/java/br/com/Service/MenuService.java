@@ -13,7 +13,7 @@ public class MenuService {
         return Response.ok().entity(new ArrayList<MenuDTO>() {{
             add(new MenuDTO("cliente/cadastro", "Cadastro"));
             add(new MenuDTO("cliente/funil", "Funil"));
-            add(new MenuDTO("cliente/campanha", "Cadastro"));
+            add(new MenuDTO("cliente/campanha", "Campanha"));
             add(new MenuDTO("cliente/relatorio", "Relatorio"));
             add(new MenuDTO("cliente/cadastro-de-perfil", "Cadastro de perfil"));
         }}).build();
