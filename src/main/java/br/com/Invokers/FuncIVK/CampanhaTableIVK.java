@@ -9,6 +9,8 @@ import org.acme.Util.InterfacesUtil.Invoker;
 import org.acme.Util.LocalDateTimeUtil;
 import org.acme.Util.PrimitiveUtil.BooleanUtils;
 
+import java.time.LocalDateTime;
+
 public class CampanhaTableIVK implements Invoker {
 
     Campanha campanha;
@@ -27,6 +29,11 @@ public class CampanhaTableIVK implements Invoker {
         }else{
             ivk.setStatus("Desativo");
         }
-        ivk.setDataCriacao(LocalDateTimeUtil.retornaYYYYMMDDTHHMMSS(campanha.getDataIntegracao()));
+
+        if(campanha.getDataIntegracao() != null){
+            ivk.setDataCriacao(LocalDateTimeUtil.retornaYYYYMMDDTHHMMSS(campanha.getDataIntegracao()));
+        }else{
+            ivk.setDataCriacao("Sem data de criação registrada");
+        }
     }
 }

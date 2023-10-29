@@ -5,9 +5,7 @@ import br.com.Service.Service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 @Path("campanha")
@@ -18,10 +16,16 @@ public class CampanhaResource {
 
 
     @GET
-    public Response listAll(){
-        return  campanhaService.findAll();
+    public Response listAll(@QueryParam("offset")Integer offset,
+    @QueryParam("soAtivo")boolean ativo){
+        return  campanhaService.findAll(offset,ativo);
     }
 
+    @GET
+    @Path("{uuid}")
+    public Response listForSelect(@PathParam("uuid") String uuid){
+        return campanhaService.findOne(uuid);
+    }
     @GET
     @Path("select")
     public Response listForSelect(){
@@ -31,5 +35,23 @@ public class CampanhaResource {
     @POST
     public Response create(String json){
         return campanhaService.create(json);
+    }
+
+    @PUT
+    @Path("{uuid}")
+    public Response update(@PathParam("uuid") String uuid,String json){
+        return campanhaService.update(uuid,json);
+    }
+
+    @DELETE
+    @Path("{uuid}")
+    public Response delete(@PathParam("uuid")String uuid){
+        return campanhaService.delete(uuid);
+    }
+
+    @PUT
+    @Path("alterar-status/{uuid}")
+    public Response alterarStatus (@PathParam("uuid")String uuid){
+        return campanhaService.updateStatus(uuid);
     }
 }

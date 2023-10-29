@@ -1,5 +1,8 @@
 package br.com.Service;
 
+import br.com.DTO.CampanhaDTO;
+import br.com.Infra.Exceptions.Mensagem;
+import br.com.Infra.Exceptions.Validacoes;
 import br.com.Invokers.FuncIVK.CampanhaTableIVK;
 import br.com.Invokers.FuncIVK.SelectIVK;
 import br.com.Invokers.IVK.CampanhaTableIVKDTO;
@@ -8,7 +11,11 @@ import br.com.Repository.CampanhaRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import org.acme.Util.PrimitiveUtil.BooleanUtils;
+import org.acme.Util.PrimitiveUtil.StringUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +25,13 @@ public class CampanhaService extends Service {
     @Inject
     private CampanhaRepository campanhaRepository;
 
-    public Response findAll() {
-        List<Campanha> campanhas = campanhaRepository.findAll();
+    public Response findAll(Integer offset, boolean ativo) {
+        List<Campanha> campanhas = null;
+        if(BooleanUtils.isTrue(ativo)){
+            campanhas = campanhaRepository.findAll(offset,true);
+        }else{
+            campanhas = campanhaRepository.findAll(offset);
+        }
         List<CampanhaTableIVKDTO> ivkdtos = new ArrayList<>();
         for (Campanha campanha : campanhas) {
             CampanhaTableIVKDTO campanhaTableIVKDTO = new CampanhaTableIVKDTO();
@@ -31,7 +43,7 @@ public class CampanhaService extends Service {
     }
 
     public Response findBySelect() {
-        List<Campanha> campanhas = campanhaRepository.findAll();
+        List<Campanha> campanhas = campanhaRepository.findAll(true);
         List<br.com.Invokers.IVK.SelectIVKDTO> campanhaSelectIVKDTOS = new ArrayList<>();
 
         for (Campanha campanha : campanhas) {
@@ -42,7 +54,85 @@ public class CampanhaService extends Service {
         return Response.ok(campanhaSelectIVKDTOS).build();
     }
 
+    @Transactional
     public Response create(String json) {
-        return  null;
+        CampanhaDTO campanhaDTO = gson.fromJson(json,CampanhaDTO.class);
+        validaDTO(campanhaDTO);
+        Campanha campanha = montaDTO(campanhaDTO);
+        campanha.setAtiva(true);
+        em.persist(campanha);
+        return  Response.ok(campanha).build();
+    }
+
+    private Campanha montaDTO(CampanhaDTO campanhaDTO) {
+        Campanha campanha = new Campanha();
+
+        campanha.setNomeCampanha(campanhaDTO.getCampanha());
+        return campanha;
+    }
+
+    private static void validaDTO(CampanhaDTO campanhaDTO) {
+        Validacoes validacoes = new Validacoes();
+        if(StringUtil.stringValida(campanhaDTO.getCampanha())){
+            validacoes.add("Nome campanha invalido", "Inseirir um nome valido");
+        }
+    }
+
+    @Transactional
+    public Response update(String uuid, String json) {
+        Campanha campanha = campanhaRepository.findByUuid(uuid);
+
+        if(campanha == null){
+            return Response.status(404).build();
+        }
+
+        CampanhaDTO campanhaDTO = gson.fromJson(json, CampanhaDTO.class);
+        validaDTO(campanhaDTO);
+
+        campanha.setNomeCampanha(campanhaDTO.getCampanha());
+
+        em.persist(campanha);
+
+        return Response.ok().build();
+    }
+
+    public Response findOne(String uuid) {
+        Campanha byUuid = campanhaRepository.findByUuid(uuid);
+        if(byUuid != null){
+            return Response.ok(byUuid).build();
+        }else{
+            return Response.noContent().build();
+        }
+    }
+
+    @Transactional
+    public Response delete(String uuid) {
+        Campanha campanha = campanhaRepository.findByUuid(uuid);
+
+        if(campanha != null){
+            campanha.delete();
+            return Response.ok().build();
+        }else{
+            return Response.status(404).build();
+        }
+    }
+
+    @Transactional
+    public Response updateStatus(String uuid) {
+        Campanha campanha = campanhaRepository.findByUuid(uuid);
+
+        if(campanha == null){
+            return Response.status(404).build();
+        }
+
+         if(BooleanUtils.isTrue(campanha.getAtiva())){
+             campanha.setAtiva(false);
+         }else{
+             campanha.setAtiva(true);
+         }
+
+         em.persist(campanha);
+
+         return Response.ok().build();
     }
 }
