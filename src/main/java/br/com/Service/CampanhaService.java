@@ -7,8 +7,10 @@ import br.com.Invokers.FuncIVK.CampanhaTableIVK;
 import br.com.Invokers.FuncIVK.SelectIVK;
 import br.com.Invokers.IVK.CampanhaTableIVKDTO;
 import br.com.Model.Campanha;
+import br.com.Model.Funil;
 import br.com.Repository.CampanhaRepository;
 
+import br.com.Repository.FunilRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -24,6 +26,11 @@ public class CampanhaService extends Service {
 
     @Inject
     private CampanhaRepository campanhaRepository;
+
+
+    @Inject
+    private FunilRepository funilRepository;
+
 
     public Response findAll(Integer offset, boolean ativo) {
         List<Campanha> campanhas = null;
@@ -134,5 +141,32 @@ public class CampanhaService extends Service {
          em.persist(campanha);
 
          return Response.ok().build();
+    }
+    @Transactional
+    public Response vincularFunil(String uuid, String funilUuid) {
+        Campanha campanha = campanhaRepository.findByUuid(uuid);
+        Funil funil = funilRepository.findByUuid(funilUuid);
+
+        validaCampanhaVincularFunil(campanha, funil);
+
+        campanha.getFunil().add(funil);
+        funil.setCampanha(campanha);
+
+        em.persist(funil);
+        em.persist(campanha);
+
+        return Response.ok().build();
+    }
+
+    private void validaCampanhaVincularFunil(Campanha campanha, Funil funil) {
+        Validacoes validacoes = new Validacoes();
+        if(campanha == null ){
+            validacoes.add("campanha invalida","");
+        }
+
+        if(funil == null){
+            validacoes.add("funil invalido","");
+        }
+        validacoes.lancaErro();
     }
 }

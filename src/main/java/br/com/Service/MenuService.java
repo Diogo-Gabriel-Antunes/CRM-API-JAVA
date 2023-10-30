@@ -21,7 +21,6 @@ public class MenuService {
 
     public Response getMenuAgenda() {
         return Response.ok().entity(new ArrayList<MenuDTO>() {{
-            add(new MenuDTO("agenda/cadastro", "Cadastro"));
             add(new MenuDTO("agenda/funil", "Funil"));
             add(new MenuDTO("agenda/campanha", "Campanha"));
             add(new MenuDTO("agenda/relatorio", "Relatorio"));

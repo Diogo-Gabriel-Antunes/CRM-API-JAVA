@@ -54,4 +54,9 @@ public class CampanhaResource {
     public Response alterarStatus (@PathParam("uuid")String uuid){
         return campanhaService.updateStatus(uuid);
     }
+    @PUT
+    @Path("vincular-funil/{uuid}/{funilUuid}")
+    public Response vincularFunil (@PathParam("uuid")String uuid,@PathParam("funilUuid") String funilUuid){
+        return campanhaService.vincularFunil(uuid,funilUuid);
+    }
 }
