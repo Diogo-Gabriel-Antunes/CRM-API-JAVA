@@ -18,7 +18,7 @@ public class AgendaService extends Service {
         if (mes == null) {
             LocalDate hoje = LocalDate.now();
             for (Mes value : Mes.values()) {
-                if (value.getMonth().ordinal() + 1 == hoje.getMonth().ordinal()) {
+                if (value.getMonth().ordinal()  == hoje.getMonth().ordinal()) {
                     mes = value;
                 }
             }
