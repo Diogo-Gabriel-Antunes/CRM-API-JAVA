@@ -22,8 +22,10 @@ public class ClienteResource {
 
 
     @GET
-    public Response listAll(@QueryParam("offset") Integer offset){
-        List<Cliente> clientes = clienteRepository.findAllByUsuario(offset);
+    public Response listAll(@QueryParam("offset") Integer offset,
+                            @QueryParam("nome")String nome,
+                            @QueryParam("sobrenome")String sobrenome){
+        List<Cliente> clientes = clienteRepository.findAllByUsuario(offset,nome,sobrenome);
         if(clientes.isEmpty()){
             return Response.noContent().build();
         }else{
