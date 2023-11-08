@@ -9,10 +9,14 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class ConfiguracaoRepository extends Repository {
 
-    public Configuracao getConfiguracao(){
-        return em.createQuery("SELECT c FROM Configuracao c " +
-                "WHERE c.usuario.uuid = :usuarioUuid ",Configuracao.class)
-                .setParameter("usuarioUuid", UsuarioLogado.getUsuario().getUuid())
-                .getSingleResult();
+    public Configuracao getConfiguracao() {
+        try {
+            return em.createQuery("SELECT c FROM Configuracao c " +
+                            "WHERE c.usuario.uuid = :usuarioUuid ", Configuracao.class)
+                    .setParameter("usuarioUuid", UsuarioLogado.getUsuario().getUuid())
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

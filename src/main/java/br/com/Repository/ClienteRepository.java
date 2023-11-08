@@ -58,13 +58,13 @@ public class ClienteRepository implements PanacheRepositoryBase<Cliente, String>
                 .param("usuarioUuid", UsuarioLogado.getUsuario().getUuid());
 
         if (StringUtil.stringValida(nome)) {
-            sqlCreator.where("c.nome = :nome")
-                    .param("nome", nome);
+            sqlCreator.where("UPPER(c.nome) LIKE UPPER(:nome)")
+                    .paramLike("nome", nome);
         }
 
         if (StringUtil.stringValida(sobrenome)) {
-            sqlCreator.where("c.sobrenome = :sobrenome")
-                    .param("sobrenome", sobrenome);
+            sqlCreator.where("UPPER(c.sobrenome) LIKE UPPER(:sobrenome)")
+                    .paramLike("sobrenome", sobrenome);
 
         }
 

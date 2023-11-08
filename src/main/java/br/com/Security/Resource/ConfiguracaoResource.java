@@ -26,4 +26,9 @@ public class ConfiguracaoResource {
     public Response getJornadaDeTrabalho(){
         return configuracaoService.getJornadaDeTrabalho();
     }
+    @GET
+    @Path("jornada-de-trabalho/select")
+    public Response getJornadaDeTrabalhoSelect(){
+        return configuracaoService.getJornadaDeTrabalhoSelect();
+    }
 }

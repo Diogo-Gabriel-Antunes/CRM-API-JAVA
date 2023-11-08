@@ -8,21 +8,26 @@ import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
 @ApplicationScoped
-public class OportunidadeRepository implements PanacheRepositoryBase<Oportunidade,String> {
+public class OportunidadeRepository implements PanacheRepositoryBase<Oportunidade, String> {
 
     EntityManager em = this.getEntityManager();
 
-    public Oportunidade findByUuid(String uuid){
-       return em.createQuery("SELECT o FROM Oportunidade o LEFT JOIN o.usuario u " +
-               "WHERE u.uuid = :usuarioUuid AND o.uuid = :uuid",Oportunidade.class)
-               .setParameter("usuarioUuid",UsuarioLogado.getUsuario().getUuid())
-               .setParameter("uuid",uuid)
-               .getSingleResult();
+    public Oportunidade findByUuid(String uuid) {
+        try {
+            return em.createQuery("SELECT o FROM Oportunidade o LEFT JOIN o.usuario u " +
+                            "WHERE u.uuid = :usuarioUuid AND o.uuid = :uuid", Oportunidade.class)
+                    .setParameter("usuarioUuid", UsuarioLogado.getUsuario().getUuid())
+                    .setParameter("uuid", uuid)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public List<OportunidadeTableDTO> findAllByUser() {
@@ -30,18 +35,18 @@ public class OportunidadeRepository implements PanacheRepositoryBase<Oportunidad
                         "LEFT JOIN o.usuario u LEFT JOIN o.cliente c " +
                         "LEFT JOIN o.funil f LEFT JOIN o.etapaDoFunil edf " +
                         "LEFT JOIN o.fonte fo LEFT JOIN o.campanha ca " +
-                        "WHERE u.uuid = :usuarioUuid",OportunidadeTableDTO.class)
-                .setParameter("usuarioUuid",UsuarioLogado.getUsuario().getUuid())
+                        "WHERE u.uuid = :usuarioUuid", OportunidadeTableDTO.class)
+                .setParameter("usuarioUuid", UsuarioLogado.getUsuario().getUuid())
                 .getResultList();
     }
 
     public List<Oportunidade> findToTimeLine(LocalDateTime dataInicio, LocalDateTime dataFim) {
         return em.createQuery("SELECT o FROM Oportunidade o LEFT JOIN o.usuario u" +
-                " WHERE u.uuid = :usuarioUuid AND o.dataMarcada <= :dataInicio AND " +
-                "o.dataMarcada >= :dataFim",Oportunidade.class)
-                .setParameter("usuarioUuid",UsuarioLogado.getUsuario().getUuid())
-                .setParameter("dataInicio",dataInicio)
-                .setParameter("dataFim",dataFim)
+                        " WHERE u.uuid = :usuarioUuid AND o.dataMarcada <= :dataInicio AND " +
+                        "o.dataMarcada >= :dataFim", Oportunidade.class)
+                .setParameter("usuarioUuid", UsuarioLogado.getUsuario().getUuid())
+                .setParameter("dataInicio", dataInicio)
+                .setParameter("dataFim", dataFim)
                 .getResultList();
     }
 }
