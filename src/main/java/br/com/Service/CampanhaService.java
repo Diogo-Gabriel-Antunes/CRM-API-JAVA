@@ -1,7 +1,6 @@
 package br.com.Service;
 
 import br.com.DTO.CampanhaDTO;
-import br.com.Infra.Exceptions.Mensagem;
 import br.com.Infra.Exceptions.Validacoes;
 import br.com.Invokers.FuncIVK.CampanhaTableIVK;
 import br.com.Invokers.FuncIVK.SelectIVK;
@@ -32,25 +31,25 @@ public class CampanhaService extends Service {
     private FunilRepository funilRepository;
 
 
-    public Response findAll(Integer offset, boolean ativo) {
-        List<Campanha> campanhas = null;
-        if(BooleanUtils.isTrue(ativo)){
-            campanhas = campanhaRepository.findAll(offset,true);
-        }else{
-            campanhas = campanhaRepository.findAll(offset);
-        }
+    public Response findAll(Integer offset, boolean ativo, String nomeCampanha) {
+        List<Campanha> campanhas = campanhaRepository.findAll(offset, ativo, nomeCampanha);
         List<CampanhaTableIVKDTO> ivkdtos = new ArrayList<>();
-        for (Campanha campanha : campanhas) {
-            CampanhaTableIVKDTO campanhaTableIVKDTO = new CampanhaTableIVKDTO();
-            fieldUtil.invokerExecutor(new CampanhaTableIVK(campanha,campanhaTableIVKDTO));
-            ivkdtos.add(campanhaTableIVKDTO);
+        if(campanhas != null){
+
+            for (Campanha campanha : campanhas) {
+                CampanhaTableIVKDTO campanhaTableIVKDTO = new CampanhaTableIVKDTO();
+                fieldUtil.invokerExecutor(new CampanhaTableIVK(campanha,campanhaTableIVKDTO));
+                ivkdtos.add(campanhaTableIVKDTO);
+            }
+            return Response.ok(ivkdtos).build();
+        }else{
+           return  Response.ok(new ArrayList<>()).build();
         }
-        return Response.ok(ivkdtos).build();
 
     }
 
     public Response findBySelect() {
-        List<Campanha> campanhas = campanhaRepository.findAll(true);
+        List<Campanha> campanhas = campanhaRepository.findAll(0,true,null);
         List<br.com.Invokers.IVK.SelectIVKDTO> campanhaSelectIVKDTOS = new ArrayList<>();
 
         for (Campanha campanha : campanhas) {

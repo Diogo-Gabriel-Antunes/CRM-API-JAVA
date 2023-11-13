@@ -2,6 +2,8 @@ package br.com.Service;
 
 import br.com.DTO.CompromissoDTO;
 import br.com.Infra.Exceptions.Validacoes;
+import br.com.Invokers.FuncIVK.FuncCompromissoRepresentacaoIVK;
+import br.com.Invokers.IVK.CompromissoRepresentacaoIVK;
 import br.com.Model.*;
 
 import br.com.Repository.*;
@@ -9,8 +11,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.acme.Util.PrimitiveUtil.StringUtil;
-
-import java.util.HashMap;
 
 @ApplicationScoped
 public class CompromissoService extends Service {
@@ -80,7 +80,7 @@ public class CompromissoService extends Service {
         return compromisso;
     }
 
-    public Compromisso createCompromisso(CompromissoDTO dto) {
+    public Compromisso createCompromisso(CompromissoDTO dto, Compromisso.TipoCompromisso tipoCompromisso) {
         Compromisso compromisso = new Compromisso();
         compromisso.setInicioCompromisso(dto.getInicioCompromisso());
         compromisso.setFimCompromisso(dto.getFimCompromisso());
@@ -89,19 +89,13 @@ public class CompromissoService extends Service {
         compromisso.setHorario(dto.getHorario());
         compromisso.setTipoCompromisso(dto.getTipoCompromisso());
         compromisso.setDiaDoMes(dto.getDiaDoMes());
-        if (dto.getOportunidades() != null && dto.getOportunidades().getUuid() != null) {
-            Oportunidade oportunidade = oportunidadeRepository.findByUuid(dto.getOportunidades().getUuid());
-            if (oportunidade == null) {
-                oportunidade = createOportunidade(dto);
-                em.persist(oportunidade);
-            }
+        if (Compromisso.TipoCompromisso.OPORTUNIDADE.equals(tipoCompromisso) && dto.getOportunidades() != null) {
+            Oportunidade oportunidade = createOportunidade(dto);
+            em.persist(oportunidade);
             compromisso.setOportunidades(oportunidade);
-        } else if (dto.getTarefas() != null && dto.getTarefas().getUuid() != null) {
-            Tarefa tarefa = tarefaRepository.findByUuid(dto.getTarefas().getUuid());
-            if (tarefa == null) {
-                tarefa = createTarefa(dto);
-                em.persist(tarefa);
-            }
+        } else if (Compromisso.TipoCompromisso.TAREFA.equals(tipoCompromisso) && dto.getTarefas() != null) {
+            Tarefa tarefa = createTarefa(dto);
+            em.persist(tarefa);
             compromisso.setTarefas(tarefa);
         }
 
@@ -147,17 +141,26 @@ public class CompromissoService extends Service {
     public Response createCompromissoByOportunidade(String json) {
         CompromissoDTO dto = gson.fromJson(json, CompromissoDTO.class);
         validaDTO(dto);
-        Compromisso compromisso = createCompromisso(dto);
+        Compromisso compromisso = createCompromisso(dto, Compromisso.TipoCompromisso.OPORTUNIDADE);
         em.persist(compromisso);
-        return Response.ok(compromisso).build();
+        CompromissoRepresentacaoIVK ivk = convertIVK(compromisso);
+
+        return Response.ok(ivk).build();
+    }
+
+    private CompromissoRepresentacaoIVK convertIVK(Compromisso compromisso) {
+        CompromissoRepresentacaoIVK ivk = new CompromissoRepresentacaoIVK();
+        fieldUtil.invokerExecutor(new FuncCompromissoRepresentacaoIVK(compromisso,ivk));
+        return ivk;
     }
 
     public Response createCompromissoByTarefa(String json) {
         CompromissoDTO dto = gson.fromJson(json, CompromissoDTO.class);
         validaDTO(dto);
-        Compromisso compromisso = createCompromisso(dto);
+        Compromisso compromisso = createCompromisso(dto, Compromisso.TipoCompromisso.TAREFA);
         em.persist(compromisso);
-        return Response.ok(compromisso).build();
+        CompromissoRepresentacaoIVK ivk = convertIVK(compromisso);
+        return Response.ok(ivk).build();
 
     }
 

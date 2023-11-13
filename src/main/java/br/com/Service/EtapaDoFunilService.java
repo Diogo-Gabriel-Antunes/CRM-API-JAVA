@@ -29,19 +29,21 @@ public class EtapaDoFunilService extends Service {
     @Inject
     private EtapaDoFunilRepository etapaDoFunilRepository;
 
-    public Response findAll(String funilUuid) {
-        List<EtapaDoFunil> funils = etapaDoFunilRepository.findAll(funilUuid);
+    public Response findAll(String funilUuid, Integer offset, String etapa, Integer nivel, Boolean finalizacao) {
+        List<EtapaDoFunil> funils = etapaDoFunilRepository.findAll(funilUuid,offset,etapa,nivel,finalizacao);
 
         List<TableEtapaFunilIVK> tableEtapaFunils = new ArrayList<>();
 
-        for (EtapaDoFunil funil : funils) {
-            TableEtapaFunilIVK tableEtapaFunilIVK = new TableEtapaFunilIVK();
-            fieldUtil.invokerExecutor(new FuncTableEtapaFunilIVK(tableEtapaFunilIVK, funil));
-            tableEtapaFunils.add(tableEtapaFunilIVK);
+        if(funils != null ){
+            for (EtapaDoFunil funil : funils) {
+                TableEtapaFunilIVK tableEtapaFunilIVK = new TableEtapaFunilIVK();
+                fieldUtil.invokerExecutor(new FuncTableEtapaFunilIVK(tableEtapaFunilIVK, funil));
+                tableEtapaFunils.add(tableEtapaFunilIVK);
+            }
+            return Response.ok(tableEtapaFunils).build();
+        }else{
+            return Response.ok(new ArrayList<>()).build();
         }
-
-        return Response.ok(tableEtapaFunils).build();
-
     }
 
     public Response findBySelect(String funilUuid) {

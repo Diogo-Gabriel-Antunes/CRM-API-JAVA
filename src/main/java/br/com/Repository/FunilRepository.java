@@ -1,22 +1,40 @@
 package br.com.Repository;
 
-import br.com.Model.Fonte;
 import br.com.Model.Funil;
 import br.com.Security.DTO.UsuarioLogado;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import org.acme.SQL.SQLCreator;
+import org.acme.Util.PrimitiveUtil.BooleanUtils;
+import org.acme.Util.PrimitiveUtil.StringUtil;
 
 import java.util.List;
 
 @ApplicationScoped
 public class FunilRepository extends Repository {
-    public List<Funil> findAll() {
-        return em.createQuery("SELECT f FROM Funil f " +
-                        "LEFT JOIN f.usuario u " +
-                        "WHERE u.uuid = :uuidUsuario " +
-                        "AND f.ativo = true", Funil.class)
-                .setParameter("uuidUsuario", UsuarioLogado.getUsuario().getUuid())
-                .getResultList();
+    public List<Funil> findAll(Integer offset, Boolean soAtivo, String nomeFunil) {
+        SQLCreator sql = criaSql();
+        sql.setOffset(offset);
+        sql.setOrderBy("f.dataIntegracao");
+
+
+        sql.select("f" , "funil")
+                .from("Funil f")
+                .from("LEFT JOIN f.usuario u");
+
+
+
+        if(BooleanUtils.isTrue(soAtivo)){
+            sql.where("f.ativo = :ativo")
+                    .param("ativo",soAtivo);
+        }
+
+        if(StringUtil.stringValida(nomeFunil)){
+            sql.where("f.nomeFunil = :nomeFunil")
+                    .param("nomeFunil",nomeFunil);
+        }
+
+        return sql.listResult(Funil.class);
 
 
     }
@@ -44,36 +62,7 @@ public class FunilRepository extends Repository {
         }
     }
 
-    public List<Funil> findAll(Integer offset) {
-        try {
-            return em.createQuery("SELECT f FROM Funil f "
-                            + "LEFT JOIN f.campanha c "
-                            + "LEFT JOIN f.captacaos cap "
-                            + "LEFT JOIN f.etapaDoFunils e"
-                            + " ORDER BY f.dataIntegracao ASC " +
-                            "OFFSET :offset")
-                    .setParameter("offset", offset)
-                    .getResultList();
-        } catch (Throwable t) {
-            return null;
-        }
-    }
 
-    public List<Funil> findAllSoAtivo(Integer offset) {
-        try {
-            return em.createQuery("SELECT f FROM Funil f "
-                            + "LEFT JOIN f.campanha c "
-                            + "LEFT JOIN f.captacaos cap "
-                            + "LEFT JOIN f.etapaDoFunils e" +
-                            " WHERE f.ativo = :ativo"
-                            + " ORDER BY f.dataIntegracao ASC " +
-                            "OFFSET :offset")
-                    .setParameter("offset", offset)
-                    .setParameter("ativo", true)
-                    .getResultList();
-        } catch (Throwable t) {
-            t.printStackTrace();
-            return null;
-        }
-    }
+
+
 }

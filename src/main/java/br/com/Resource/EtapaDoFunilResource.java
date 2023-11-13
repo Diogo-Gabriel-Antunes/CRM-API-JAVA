@@ -16,24 +16,30 @@ public class EtapaDoFunilResource {
 
 
     @GET
-    public Response listAll(@QueryParam("funilUuid") String funilUuid){
-        return  etapaDoFunilService.findAll(funilUuid);
+    public Response listAll(@QueryParam("funilUuid") String funilUuid,
+                            @QueryParam("offset") Integer offset,
+                            @QueryParam("etapa") String etapa,
+                            @QueryParam("nivel") Integer nivel,
+                            @QueryParam("finalizacao") Boolean finalizacao) {
+        return etapaDoFunilService.findAll(funilUuid,offset,etapa,nivel,finalizacao);
     }
+
     @GET
     @Path("{uuid}")
-    public Response getOne(@PathParam("uuid") String uuid){
+    public Response getOne(@PathParam("uuid") String uuid) {
         return etapaDoFunilService.findOne(uuid);
     }
 
     @PUT
     @Path("{uuid}")
     @Transactional
-    public Response update(@PathParam("uuid") String uuid,String json){
-        return etapaDoFunilService.update(uuid,json);
+    public Response update(@PathParam("uuid") String uuid, String json) {
+        return etapaDoFunilService.update(uuid, json);
     }
+
     @POST
     @Transactional
-    public Response create(String json){
+    public Response create(String json) {
         return etapaDoFunilService.create(json);
     }
 
@@ -41,23 +47,24 @@ public class EtapaDoFunilResource {
     @PUT
     @Path("alterar-ativo/{uuid}")
     @Transactional
-    public Response alterarAtivo(@PathParam("uuid") String uuid){
+    public Response alterarAtivo(@PathParam("uuid") String uuid) {
         return etapaDoFunilService.alterarAtivo(uuid);
     }
+
     @Path("select")
-    public Response listForSelect(@QueryParam("funilUuid") String funilUuid){
+    public Response listForSelect(@QueryParam("funilUuid") String funilUuid) {
         return etapaDoFunilService.findBySelect(funilUuid);
     }
 
     @GET
     @Path("funil/{funilUuid}")
-    public Response listByFunil(@PathParam("funilUuid") String funilUuid){
+    public Response listByFunil(@PathParam("funilUuid") String funilUuid) {
         return etapaDoFunilService.listByFunil(funilUuid);
     }
 
     @GET
     @Path("lead")
-    public Response etapasDoFunilByLead(@QueryParam("funilUuid")String funilUuid){
+    public Response etapasDoFunilByLead(@QueryParam("funilUuid") String funilUuid) {
         return etapaDoFunilService.etapasFunilByLead(funilUuid);
     }
 
@@ -65,8 +72,8 @@ public class EtapaDoFunilResource {
     @DELETE
     @Path("{uuid}")
     @Transactional
-    public Response delete(@PathParam("uuid") String uuid){
-     return etapaDoFunilService.delete(uuid);
+    public Response delete(@PathParam("uuid") String uuid) {
+        return etapaDoFunilService.delete(uuid);
     }
 
 }

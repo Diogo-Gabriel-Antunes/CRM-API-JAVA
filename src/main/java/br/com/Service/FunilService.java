@@ -2,8 +2,10 @@ package br.com.Service;
 
 import br.com.DTO.FunilDTO;
 import br.com.Infra.Exceptions.Validacoes;
+import br.com.Invokers.FuncIVK.FuncFunilRepresentacaoIVK;
 import br.com.Invokers.FuncIVK.FunilTableIVK;
 import br.com.Invokers.FuncIVK.SelectIVK;
+import br.com.Invokers.IVK.FunilRepresentacaoIVK;
 import br.com.Invokers.IVK.FunilTableIVKDTO;
 import br.com.Model.Funil;
 import br.com.Model.Integracoes;
@@ -13,9 +15,7 @@ import br.com.Repository.IntegracoesRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.core.NoContentException;
 import jakarta.ws.rs.core.Response;
-import org.acme.Util.PrimitiveUtil.BooleanUtils;
 import org.acme.Util.PrimitiveUtil.StringUtil;
 
 import java.util.ArrayList;
@@ -33,13 +33,8 @@ public class FunilService extends Service {
     @Inject
     private IntegracoesRepository integracoesRepository;
 
-    public Response findAll(Integer offset, Boolean soAtivo) {
-        List<Funil> funils = null;
-        if (BooleanUtils.isTrue(soAtivo)) {
-            funils = funilRepository.findAllSoAtivo(offset);
-        } else {
-            funils = funilRepository.findAll(offset);
-        }
+    public Response findAll(Integer offset, Boolean soAtivo, String nomeFunil) {
+        List<Funil> funils = funilRepository.findAll(offset,soAtivo,nomeFunil);
          List<FunilTableIVKDTO> ivk = new ArrayList<>();
         for (Funil funil : funils) {
             FunilTableIVKDTO funilTableIVKDTO = new FunilTableIVKDTO();
@@ -51,7 +46,7 @@ public class FunilService extends Service {
     }
 
     public Response findBySelect() {
-        List<Funil> funils = funilRepository.findAll();
+        List<Funil> funils = funilRepository.findAll(0, null, null);
         List<br.com.Invokers.IVK.SelectIVKDTO> selectIVKDTOS = new ArrayList<>();
 
         for (Funil funil : funils) {
@@ -147,7 +142,9 @@ public class FunilService extends Service {
         if (funil == null) {
             return Response.noContent().build();
         } else {
-            return Response.ok(funil).build();
+            FunilRepresentacaoIVK funilRepresentacaoIVK = new FunilRepresentacaoIVK();
+            fieldUtil.invokerExecutor(new FuncFunilRepresentacaoIVK(funil,funilRepresentacaoIVK));
+            return Response.ok(funilRepresentacaoIVK).build();
         }
     }
 

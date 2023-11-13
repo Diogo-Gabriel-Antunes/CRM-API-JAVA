@@ -15,8 +15,10 @@ public class FunilResource {
 
 
     @GET
-    public Response listAll(@QueryParam("offset")Integer offset, @QueryParam("soAtivo")Boolean soAtivo){
-        return  funilService.findAll(offset,soAtivo);
+    public Response listAll(@QueryParam("offset")Integer offset,
+                            @QueryParam("soAtivo")Boolean soAtivo,
+                            @QueryParam("nomeFunil") String nomeFunil){
+        return  funilService.findAll(offset,soAtivo,nomeFunil);
     }
 
     @GET
