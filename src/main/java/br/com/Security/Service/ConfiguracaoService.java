@@ -1,12 +1,12 @@
 package br.com.Security.Service;
 
 import br.com.Invokers.IVK.SelectIVKDTO;
+import br.com.Security.DTO.CargaHorariaDTO;
 import br.com.Security.DTO.ConfiguracaoDTO;
 import br.com.Security.DTO.ResponseHorasTrabalhadas;
 import br.com.Security.DTO.UsuarioLogado;
 import br.com.Security.Model.CargaHoraria;
 import br.com.Security.Model.Configuracao;
-import br.com.Model.Enum.DiaDaSemana;
 import br.com.Model.Enum.Horario;
 import br.com.Security.Model.Usuario;
 import br.com.Security.Repository.ConfiguracaoRepository;
@@ -15,6 +15,7 @@ import br.com.Service.Service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
+import org.acme.Util.PrimitiveUtil.ArrayUtil;
 import org.acme.Util.PrimitiveUtil.BooleanUtils;
 
 import java.util.ArrayList;
@@ -56,25 +57,31 @@ public class ConfiguracaoService extends Service {
 
     public Configuracao montaConfigPersonalizada(ConfiguracaoDTO dto) {
         Configuracao configuracao = new Configuracao();
-        em.persist(configuracao);
         configuracao.setCargaHoraria(new ArrayList<>());
         configuracao.setHorarioPadrao(false);
-        for (DiaDaSemana diaDaSemana : dto.diasDaSemana) {
-            CargaHoraria cargaHoraria = new CargaHoraria();
-            for (Horario value : Horario.values()) {
-                if (value.getHorario().equals(dto.horaEntrada)) {
-                    cargaHoraria.setHorarioEntrada(value);
-                }
-                if (value.getHorario().equals(dto.horaSaida)) {
-                    cargaHoraria.setHorarioSaida(value);
-                }
-            }
-            cargaHoraria.setDiaDaSemana(diaDaSemana);
-            cargaHoraria.setConfiguracao(configuracao);
-            em.persist(cargaHoraria);
-            configuracao.getCargaHoraria().add(cargaHoraria);
-        }
+
+        configuracao.setCargaHoraria(montaListCargaHoraria(dto.getCargaHoraria(),configuracao));
         return configuracao;
+    }
+
+    private List<CargaHoraria> montaListCargaHoraria(List<CargaHorariaDTO> dto, Configuracao configuracao) {
+        if(ArrayUtil.validaArray(dto)){
+            List<CargaHoraria> cargaHorariaList = new ArrayList<>();
+
+            for (CargaHorariaDTO cargaHorariaDTO : dto) {
+                CargaHoraria cargaHoraria = new CargaHoraria();
+                cargaHoraria.setHorarioEntrada(Horario.valueOf(cargaHorariaDTO.getHorarioEntrada()));
+                cargaHoraria.setHorarioSaida(Horario.valueOf(cargaHorariaDTO.getHorarioSaida()));
+                cargaHoraria.setDiaDaSemana(cargaHorariaDTO.getDiaDaSemana());
+                cargaHorariaList.add(cargaHoraria);
+                em.persist(configuracao);
+                cargaHoraria.setConfiguracao(configuracao);
+                em.persist(cargaHoraria);
+            }
+            return cargaHorariaList;
+        }else{
+            return null;
+        }
     }
 
     public Configuracao montaConfigPadrao(ConfiguracaoDTO dto) {
@@ -82,16 +89,7 @@ public class ConfiguracaoService extends Service {
         em.persist(configuracao);
         configuracao.setCargaHoraria(new ArrayList<>());
         configuracao.setHorarioPadrao(true);
-        for (DiaDaSemana diaDaSemana : dto.diasDaSemana) {
-            CargaHoraria cargaHoraria = new CargaHoraria();
-            cargaHoraria.setHorarioEntrada(Horario.H08);
-            cargaHoraria.setHorarioSaida(Horario.H18);
-            cargaHoraria.setDiaDaSemana(diaDaSemana);
-            cargaHoraria.setConfiguracao(configuracao);
-            em.persist(cargaHoraria);
-            configuracao.getCargaHoraria().add(cargaHoraria);
 
-        }
         return configuracao;
     }
 
@@ -121,7 +119,7 @@ public class ConfiguracaoService extends Service {
 
     public Response getJornadaDeTrabalhoSelect() {
         Configuracao configuracao = configuracaoRepository.getConfiguracao();
-        List<SelectIVKDTO> response = null;
+        List<SelectIVKDTO> response = new ArrayList<>();
 
         if (configuracao != null) {
             if (BooleanUtils.isTrue(configuracao.getHorarioPadrao())) {

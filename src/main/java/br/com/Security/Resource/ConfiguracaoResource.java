@@ -1,5 +1,8 @@
 package br.com.Security.Resource;
 
+import br.com.Security.DTO.UsuarioLogado;
+import br.com.Security.Model.Configuracao;
+import br.com.Security.Model.Usuario;
 import br.com.Security.Service.ConfiguracaoService;
 
 import jakarta.inject.Inject;
@@ -19,6 +22,12 @@ public class ConfiguracaoResource {
     @Transactional
     public Response create(String json){
         return  configuracaoService.create(json);
+    }
+
+    @GET
+    public Response getConfig(){
+        Configuracao configuracao = UsuarioLogado.getUsuario().getConfiguracao();
+        return Response.ok(configuracao).build();
     }
 
     @GET

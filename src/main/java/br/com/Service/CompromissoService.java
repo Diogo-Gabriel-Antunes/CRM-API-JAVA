@@ -93,10 +93,13 @@ public class CompromissoService extends Service {
             Oportunidade oportunidade = createOportunidade(dto);
             em.persist(oportunidade);
             compromisso.setOportunidades(oportunidade);
+            compromisso.setTipoCompromisso(Compromisso.TipoCompromisso.OPORTUNIDADE);
         } else if (Compromisso.TipoCompromisso.TAREFA.equals(tipoCompromisso) && dto.getTarefas() != null) {
             Tarefa tarefa = createTarefa(dto);
             em.persist(tarefa);
             compromisso.setTarefas(tarefa);
+            compromisso.setTipoCompromisso(Compromisso.TipoCompromisso.TAREFA);
+
         }
 
 

@@ -14,8 +14,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
 @ApplicationScoped
 public class CalendarioService extends Service {
@@ -47,8 +49,20 @@ public class CalendarioService extends Service {
         } else {
             createCalendario(calendarioDTO, compromissos, 30);
         }
+
+        ordernarHorarios(calendarioDTO);
         calendarioDTO.setMes(mes);
         return calendarioDTO;
+    }
+
+    private void ordernarHorarios(CalendarioDTO calendarioDTO) {
+        Stream<CalendarioDTO.CalendarioDia> newDia = calendarioDTO.getDias().stream().map(dia -> {
+            dia.getCalendarioHorarios().sort(Comparator.comparing(horario -> horario.getHorario().getValor())
+            );
+
+            return dia;
+        });
+        calendarioDTO.setDias(newDia.toList());
     }
 
     private void createCalendario(CalendarioDTO calendarioDTO, List<Compromisso> compromissos, Integer qtdDiasNoMes) {

@@ -1,13 +1,14 @@
 package br.com.Security.DTO;
 
 import br.com.Model.Enum.DiaDaSemana;
+import br.com.Security.Model.CargaHoraria;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class ConfiguracaoDTO {
 
-    public List<DiaDaSemana> diasDaSemana;
-    public String horaEntrada;
-    public String horaSaida;
+    private List<CargaHorariaDTO> cargaHoraria;
     public Boolean horarioPadrao;
 }
