@@ -4,6 +4,7 @@ import br.com.Model.AA.EntidadeGenerica;
 import br.com.Model.Enum.DiaDaSemana;
 import br.com.Model.Enum.Horario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.json.bind.annotation.JsonbTransient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +24,7 @@ public class CargaHoraria extends EntidadeGenerica implements Serializable {
     private Horario horarioEntrada;
     private Horario horarioSaida;
     @ManyToOne
-    @JsonIgnore
+    @JsonbTransient
     private Configuracao configuracao;
 
 }

@@ -1,6 +1,7 @@
 package br.com.Repository;
 
 import br.com.Model.EtapaDoFunil;
+import br.com.Model.Funil;
 import br.com.Security.DTO.UsuarioLogado;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -96,5 +97,16 @@ public class EtapaDoFunilRepository extends Repository {
                         "WHERE u.uuid = :usuarioUuid", EtapaDoFunil.class)
                 .setParameter("usuarioUuid", UsuarioLogado.getUsuario().getUuid())
                 .getResultList();
+    }
+
+    public EtapaDoFunil findByFunilAndName(Funil funil, String etapaName) {
+        return em.createQuery("SELECT ef FROM EtapaDoFunil ef " +
+                " LEFT JOIN ef.funil f " +
+                " WHERE ef.etapa = :etapaName " +
+                " AND f.uuid = :funilUuid ",EtapaDoFunil.class)
+                .setParameter("etapaName",etapaName)
+                .setParameter("funilUuid",funil.getUuid())
+                .getSingleResult();
+
     }
 }

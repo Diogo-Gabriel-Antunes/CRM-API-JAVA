@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import org.acme.SQL.SQLCreator;
 import org.acme.Util.InterfacesUtil.Model;
 
 import java.io.Serializable;
@@ -28,4 +29,6 @@ public class EtapaDoFunil extends EntidadeGenerica implements Serializable, Mode
     @JsonIgnore
     @JsonbTransient
     private Funil funil;
+
+
 }

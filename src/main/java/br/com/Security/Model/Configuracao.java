@@ -14,7 +14,6 @@ import java.util.List;
 public class Configuracao extends EntidadeGenerica {
 
     @OneToMany(mappedBy = "configuracao",cascade = CascadeType.ALL)
-    @JsonbTransient
     private List<CargaHoraria> cargaHoraria;
     private Boolean horarioPadrao;
 

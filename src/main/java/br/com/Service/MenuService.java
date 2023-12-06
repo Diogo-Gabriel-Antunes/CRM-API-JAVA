@@ -28,10 +28,24 @@ public class MenuService {
 
     public Response getMenuDragDrop() {
         return Response.ok().entity(new ArrayList<MenuDTO>() {{
-            add(new MenuDTO("drag-drop/cadastro", "Cadastro"));
-            add(new MenuDTO("drag-drop/funil", "Funil"));
-            add(new MenuDTO("drag-drop/campanha", "Campanha"));
-            add(new MenuDTO("drag-drop/relatorio", "Relatorio"));
+            add(new MenuDTO("drag-drop/visualizar", "visualizar"));
+            add(new MenuDTO("drag-drop/configuracoes", "configuracoes"));
         }}).build();
     }
+
+    public Response getMenuProduto() {
+        return Response.ok().entity(new ArrayList<MenuDTO>() {{
+            add(new MenuDTO("produto/cadastrar", "cadastrar"));
+            add(new MenuDTO("produto/materia-prima", "Mataria Prima"));
+        }}).build();
+    }
+
+    public Response getMenuEmail() {
+        return Response.ok().entity(new ArrayList<MenuDTO>() {{
+            add(new MenuDTO("email/cadastrar", "Cadastrar Template"));
+            add(new MenuDTO("email/enviar-email", "Enviar email"));
+            add(new MenuDTO("email/caixa-postal", "Caixa Postal"));
+            add(new MenuDTO("email/configuracoes", "Configuracoes"));
+        }}).build();
+        }
 }

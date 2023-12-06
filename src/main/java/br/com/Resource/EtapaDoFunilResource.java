@@ -50,7 +50,7 @@ public class EtapaDoFunilResource {
     public Response alterarAtivo(@PathParam("uuid") String uuid) {
         return etapaDoFunilService.alterarAtivo(uuid);
     }
-
+    @GET
     @Path("select")
     public Response listForSelect(@QueryParam("funilUuid") String funilUuid) {
         return etapaDoFunilService.findBySelect(funilUuid);

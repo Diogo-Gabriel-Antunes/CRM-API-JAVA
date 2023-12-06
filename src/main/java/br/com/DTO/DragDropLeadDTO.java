@@ -9,6 +9,7 @@ import java.util.List;
 public class DragDropLeadDTO {
 
     private String etapaUuid;
+    private String etapaName;
     private List<ItensDragDrop> leads;
 
     @Data

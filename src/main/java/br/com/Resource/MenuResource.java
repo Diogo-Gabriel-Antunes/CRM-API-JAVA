@@ -29,4 +29,15 @@ public class MenuResource {
     public Response getMenuDragDrop(){
         return menuService.getMenuDragDrop();
     }
+
+    @GET
+    @Path("produto")
+    public Response getMenuProduto(){
+        return menuService.getMenuProduto();
+    }    @GET
+
+    @Path("email")
+    public Response getMenuEmail(){
+        return menuService.getMenuEmail();
+    }
 }

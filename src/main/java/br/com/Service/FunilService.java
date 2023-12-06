@@ -46,7 +46,7 @@ public class FunilService extends Service {
     }
 
     public Response findBySelect() {
-        List<Funil> funils = funilRepository.findAll(0, null, null);
+        List<Funil> funils = funilRepository.findAll(0, true, null);
         List<br.com.Invokers.IVK.SelectIVKDTO> selectIVKDTOS = new ArrayList<>();
 
         for (Funil funil : funils) {
@@ -157,6 +157,16 @@ public class FunilService extends Service {
         }else{
             funil.delete();
             return Response.ok(funil).build();
+        }
+    }
+
+    public Response findPadrao() {
+        Funil padrao = funilRepository.findPadrao();
+
+        if(padrao != null){
+            return Response.ok(padrao).build();
+        }else{
+            return Response.status(404).build();
         }
     }
 }

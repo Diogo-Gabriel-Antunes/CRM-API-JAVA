@@ -32,6 +32,12 @@ public class FunilResource {
     public Response listForSelect(){
         return funilService.findBySelect();
     }
+    @GET
+    @Path("padrao")
+    public Response findPadrao(){
+        return funilService.findPadrao();
+    }
+
 
     @POST
     public Response create(String json){

@@ -34,8 +34,8 @@ public class LeadResource {
     @PUT
     @Transactional
     @Path("drag-drop/{uuid}")
-    public Response updateLead(@PathParam("uuid")String uuid,@QueryParam("novaEtapaUuid")String novaEtapaUuid){
-        return leadService.updateDragDrop(uuid,novaEtapaUuid);
+    public Response updateLead(@PathParam("uuid")String uuid,@QueryParam("etapaName")String etapaName){
+        return leadService.updateDragDrop(uuid,etapaName);
     }
 
     @GET

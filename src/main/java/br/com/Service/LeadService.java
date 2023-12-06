@@ -55,6 +55,7 @@ public class LeadService extends Service {
                     itensDragDrops.add(item);
                 }
                 dragDropLeadDTO.setEtapaUuid(etapa.getUuid());
+                dragDropLeadDTO.setEtapaName(etapa.getEtapa());
                 dragDropLeadDTO.setLeads(itensDragDrops);
                 dragDropLeadDTOS.add(dragDropLeadDTO);
             }
@@ -147,10 +148,10 @@ public class LeadService extends Service {
 
     }
 
-    public Response updateDragDrop(String uuid, String novaEtapaUuid) {
-        if(StringUtil.stringValida(novaEtapaUuid)){
+    public Response updateDragDrop(String uuid, String etapaName) {
+        if(StringUtil.stringValida(etapaName)){
             Lead lead = leadRepository.findByUuid(uuid);
-            EtapaDoFunil etapa = EtapaDoFunil.findById(novaEtapaUuid);
+            EtapaDoFunil etapa = etapaDoFunilRepository.findByFunilAndName(lead.getFunil(),etapaName);
             lead.setEtapaDoFunil(etapa);
             em.merge(lead);
             return Response.ok(lead).build();

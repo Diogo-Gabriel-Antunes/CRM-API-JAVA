@@ -2,6 +2,7 @@ package br.com.Model;
 
 import br.com.Model.AA.EntidadeGenerica;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Funil extends EntidadeGenerica {
     private List<Integracoes> integracoes;
     private String listaIntegracoes;
     @ManyToOne
+    @JsonbTransient
     private Campanha campanha;
     private Boolean ativo;
     private Boolean padrao;
@@ -30,7 +32,6 @@ public class Funil extends EntidadeGenerica {
 
 
     @OneToMany(mappedBy = "funil",fetch = FetchType.EAGER)
-    @JsonIgnore
     private List<EtapaDoFunil> etapaDoFunils = new ArrayList<>();
 
 
