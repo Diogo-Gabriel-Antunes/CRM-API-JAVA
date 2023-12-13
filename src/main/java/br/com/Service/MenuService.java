@@ -37,6 +37,7 @@ public class MenuService {
         return Response.ok().entity(new ArrayList<MenuDTO>() {{
             add(new MenuDTO("produto/cadastrar", "cadastrar"));
             add(new MenuDTO("produto/materia-prima", "Mataria Prima"));
+            add(new MenuDTO("produto/promocao", "Promocao"));
         }}).build();
     }
 
