@@ -12,6 +12,7 @@ import br.com.Repository.PromocaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
+import org.acme.Util.PrimitiveUtil.ArrayUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +29,18 @@ public class PromocaoService extends Service {
     public Response getAll(Integer offset, Integer limit) {
         List<Promocao> promocaos = promocaoRepository.findAll(offset,limit);
 
+        if(ArrayUtil.validaArray(promocaos)){
 
-        List<PromocaoRepresentacaoIVK> list = new ArrayList<>();
-        for (Promocao promocao : promocaos) {
-            PromocaoRepresentacaoIVK ivk = new PromocaoRepresentacaoIVK();
-            fieldUtil.invokerExecutor(new FuncPromocaoRepresentacaoIVK(promocao,ivk));
-            list.add(ivk);
+            List<PromocaoRepresentacaoIVK> list = new ArrayList<>();
+            for (Promocao promocao : promocaos) {
+                PromocaoRepresentacaoIVK ivk = new PromocaoRepresentacaoIVK();
+                fieldUtil.invokerExecutor(new FuncPromocaoRepresentacaoIVK(promocao,ivk));
+                list.add(ivk);
+            }
+            return Response.ok(list).build();
+        }else{
+            return Response.ok(new ArrayList<>()).build();
         }
-        return Response.ok(list).build();
     }
 
     public Response getOne(String uuid) {
@@ -44,20 +49,29 @@ public class PromocaoService extends Service {
     }
 
     public Response create(String json) {
-        Promocao promocao = gson.fromJson(json, Promocao.class);
+        PromocaoDTO promocaoDTO = gson.fromJson(json, PromocaoDTO.class);
+        Promocao promocao = new Promocao();
+        montaPromocao(promocao,promocaoDTO);
         em.persist(promocao);
-        return Response.ok(promocao).build();
+        PromocaoRepresentacaoIVK ivk = new PromocaoRepresentacaoIVK();
+        fieldUtil.invokerExecutor(new FuncPromocaoRepresentacaoIVK(promocao,ivk));
+        return Response.ok(ivk).build();
     }
+
+
 
     public Response update(String uuid, String json) {
         Promocao promocao = promocaoRepository.findByUuid(uuid);
         PromocaoDTO promocaoDTO = gson.fromJson(json, PromocaoDTO.class);
-        atualizaPromocao(promocao,promocaoDTO);
+        montaPromocao(promocao,promocaoDTO);
         em.persist(promocao);
-        return Response.ok(promocao).build();
+        PromocaoRepresentacaoIVK ivk = new PromocaoRepresentacaoIVK();
+        fieldUtil.invokerExecutor(new FuncPromocaoRepresentacaoIVK(promocao,ivk));
+        return Response.ok(ivk).build();
     }
 
-    private void atualizaPromocao(Promocao promocao, PromocaoDTO promocaoDTO) {
+    private void montaPromocao(Promocao promocao, PromocaoDTO promocaoDTO) {
+        promocao.setNomePromocao(promocaoDTO.getNomePromocao());
         promocao.setPorcetagem(promocaoDTO.getPorcetagem());
         promocao.setItensPromocaos(new ArrayList<>());
         for (ItensPromocaoDTO itensPromocao : promocaoDTO.getItensPromocaos()) {

@@ -17,8 +17,9 @@ public class FuncPromocaoRepresentacaoIVK implements Invoker {
 
     public void invoker() {
         dto.setUuid(model.getUuid());
+        dto.setNomePromocao(model.getNomePromocao());
         dto.setPorcetagem(model.getPorcetagem());
-        dto.setQuantidadeDeProdutos((long) model.getItensPromocaos().getProdutos().size());
+        dto.setQuantidadeDeProdutos((long) model.getItensPromocaos().size());
 
     }
 }

@@ -2,6 +2,7 @@ package br.com.Resource;
 
 import br.com.Service.PromocaoService;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
@@ -25,12 +26,14 @@ public class PromocaoResource {
     }
 
     @POST
+    @Transactional
     public Response create(String json){
         return promocaoService.create(json);
     }
 
     @PUT
     @Path("{uuid}")
+    @Transactional
     public Response update(@PathParam("uuid")String uuid,String json){
         return promocaoService.update(uuid,json);
     }

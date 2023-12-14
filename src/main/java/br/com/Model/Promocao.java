@@ -17,6 +17,8 @@ import java.util.Set;
 @Entity
 public class Promocao extends EntidadeGenerica {
 
+    private String nomePromocao;
+
     private Double porcetagem;
 
     @ManyToMany
